@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    //Prompt Message
+    <string name ="error_username">"Username can't be blank"</string>
+	<string name ="error_password">"Password can't be blank"</string>
+    <string name ="error_email_verify">This email address is invalid</string>
+    <string name ="error_fname">Please enter your First Name</string>
+    <string name ="error_lname">Please enter your Last Name</string>
+	<string name ="error_mobile">Please enter your Mobile Number</string>
+	<string name ="error_cpassword">Please enter Valid Confirm Password</string>
+	<string name ="error_city">Please enter your City name</string>
+	<string name ="error_flat">Please enter your Flat Number</string>
+	<string name ="error_tc">"Please accept our TC"</string>
+</resources>
