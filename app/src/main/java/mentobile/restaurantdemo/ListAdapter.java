@@ -75,6 +75,7 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 view.startAnimation(animation);
                 Log.d("Image ", "::::Button Plus" + itemDetail.getQuantity());
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
+                notifyDataSetChanged();
             }
         });
         holder.imgViewMinus.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +87,10 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 if (itemDetail.getQuantity() > 1) {
                     itemDetail.setQuantity(itemDetail.getQuantity() - 1);
                 }
+                notifyDataSetChanged();
             }
         });
-        notifyDataSetChanged();
+
         return gridView;
     }
 
