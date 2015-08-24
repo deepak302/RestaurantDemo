@@ -44,7 +44,7 @@ public class ItemDetail {
     }
 
     public int getPrice() {
-        return Price;
+        return getQuantity() * Price;
     }
 
     public void setPrice(int price) {

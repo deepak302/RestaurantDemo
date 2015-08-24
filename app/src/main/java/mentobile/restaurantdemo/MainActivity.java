@@ -209,6 +209,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Log.d(TAG,"View "+view);
         switch (position) {
             case 0:
+
                 break;
             case 1:
                 Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
