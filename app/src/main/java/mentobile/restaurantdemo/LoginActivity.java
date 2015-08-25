@@ -1,16 +1,22 @@
 package mentobile.restaurantdemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.View;
@@ -21,6 +27,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
@@ -34,7 +52,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,8 +67,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     private final String TAG = "LoginActivity";
     private Button btnLogin;
     private Button btnSignup;
-    private Button btnFacebook;
-    private Button btnGoogle;
+    private ImageButton btnFacebook;
+    private ImageButton btnGoogle;
     private ImageButton imgBtnClose;
     private EditText edUserName;
     private EditText edPassword;
@@ -63,23 +84,42 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "OnStop");
 //        if (mGoogleApiClient.isConnected()) {
 //            mGoogleApiClient.disconnect();
 //        }
+
+        //Facebook
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be
+        // launched into.
+        AppEventsLogger.deactivateApp(this);
+
+        //EndFacebook
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        profileTracker.stopTracking();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        // facebook sdk initialize
+        this.savedInstanceState = savedInstanceState;
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        AppEventsLogger.activateApp(this);
+        // End facebook initialize
+
+
         setContentView(R.layout.activity_login);
         loginActivity = this;
         cProgressDialog = new CProgressDialog(LoginActivity.this);
@@ -96,10 +136,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         tvForgetPass = (TextView) findViewById(R.id.login_tv_forgetpassword);
         tvForgetPass.setOnClickListener(this);
 
-        btnFacebook = (Button) findViewById(R.id.login_btn_facebook);
-        btnFacebook.setOnClickListener(this);
-        btnGoogle = (Button) findViewById(R.id.login_btn_google);
+        btnGoogle = (ImageButton) findViewById(R.id.login_btn_google);
         btnGoogle.setOnClickListener(this);
+
+        btnFacebook = (ImageButton) findViewById(R.id.login_btn_facebook);
+        btnFacebook.setOnClickListener(this);
 
         jsonParser = new JsonParser();
 //        Log.d(TAG,":::::GoogleApiClienr "+mGoogleApiClient.isConnected());
@@ -161,6 +202,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                             cProgressDialog.hide();
                             Log.d(TAG, "::::::Result " + result);
                             if (result.equals("success")) {
+
                                 LOGIN_TYPE = 1;
                                 Profile.getProfile().setEmailID(edUserName.getText().toString().trim());
                                 Application.setDataInSharedPreference(LoginActivity.this, Application.SP_LOGIN_LOGOUT, "email",
@@ -188,18 +230,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                 startActivity(intent);
                 break;
             case R.id.login_btn_facebook:
-                Intent intentFB = new Intent(this, FacebookActivity.class);
-                startActivity(intentFB);
-                googlePlusLogout();
+                facebookLogin();
                 break;
             case R.id.login_btn_google:
                 googlePlusLogin();
                 break;
-            case R.id.signin:
-
-                break;
             case R.id.login_tv_forgetpassword:
-                Log.d(TAG, ":::::::Text Click");
                 forgetPassword();
                 break;
         }
@@ -305,17 +341,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             mGoogleApiClient.disconnect();
             mGoogleApiClient.connect();
-            LOGIN_TYPE = 0;
         }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         signedInUser = false;
-        LOGIN_TYPE = 1;
         Toast.makeText(this, "G+ Connected", Toast.LENGTH_LONG).show();
         try {
             if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+                LOGIN_TYPE = 2;
                 Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                 String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 Profile.getProfile().setFullName(currentPerson.getDisplayName());
@@ -327,6 +362,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                 cProgressDialog.hide();
                 startActivity(intent);
                 finish();
+
 //                new LoadProfileImage(image).execute(personPhotoUrl);
             }
         } catch (Exception e) {
@@ -356,6 +392,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     @Override
     protected void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
+        callbackManager.onActivityResult(requestCode, responseCode, data);
 //        Log.d("GoogleActivity ", "::::RequestCode " + requestCode + " " + " Response " + responseCode);
         switch (requestCode) {
             case RC_SIGN_IN:
@@ -407,4 +444,131 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         Google Login Connection Method
         ------------ End  ---------------
      */
+
+
+    // Facebook integration
+
+    private final String PENDING_ACTION_BUNDLE_KEY = "mentobile.restaurantdemo:PendingAction";
+    private PendingAction pendingAction = PendingAction.NONE;
+    private CallbackManager callbackManager;
+    private Bundle savedInstanceState;
+
+    private enum PendingAction {
+        NONE,
+        POST_PHOTO,
+        POST_STATUS_UPDATE
+    }
+
+    public static void showHashKey(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    "mentobile.restaurantdemo", PackageManager.GET_SIGNATURES); //Your            package name here
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+        } catch (NoSuchAlgorithmException e) {
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(PENDING_ACTION_BUNDLE_KEY, pendingAction.name());
+    }
+
+    private void handlePendingAction() {
+
+        PendingAction previouslyPendingAction = pendingAction;
+        Log.d(TAG, ":::::PendingAction " + previouslyPendingAction.toString());
+        // These actions may re-set pendingAction if they are still pending, but we assume they
+        // will succeed.
+        pendingAction = PendingAction.NONE;
+        switch (previouslyPendingAction) {
+            case NONE:
+                break;
+        }
+    }
+
+    public void facebokLogout() {
+        LoginManager.getInstance().logOut();
+    }
+
+    public void facebookLogin() {
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("basic_info", "email"));
+//        btnFacebook.setReadPermissions(Arrays.asList("basic_info", "email"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handlePendingAction();
+                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                                Log.d("FacebookActivity ", ":::::FB " + jsonObject.toString());
+                                LOGIN_TYPE = 3;
+                                try {
+                                    String email = (String) jsonObject.get("email");
+                                    String name = (String) jsonObject.get("name");
+                                    Profile.getProfile().setFullName(name);
+                                    Profile.getProfile().setEmailID(email);
+                                    Application.setDataInSharedPreference(LoginActivity.this, Application.SP_LOGIN_LOGOUT, "email", email);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    cProgressDialog.hide();
+                                    startActivity(intent);
+                                    finish();
+                                } catch (Exception e) {
+
+                                }
+                            }
+                        });
+                Bundle param = new Bundle();
+                param.putString("fields", "id,name,email,gender, birthday");
+                graphRequest.setParameters(param);
+                graphRequest.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                if (pendingAction != PendingAction.NONE) {
+                    showAlert();
+                    pendingAction = PendingAction.NONE;
+                }
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                if (pendingAction != PendingAction.NONE
+                        && exception instanceof FacebookAuthorizationException) {
+                    showAlert();
+                    pendingAction = PendingAction.NONE;
+                    Log.d(TAG, ":::::OnError");
+                }
+            }
+
+            private void showAlert() {
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setTitle(R.string.cancelled)
+                        .setMessage(R.string.permission_not_granted)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+            }
+        });
+
+        if (savedInstanceState != null) {
+            String name = savedInstanceState.getString(PENDING_ACTION_BUNDLE_KEY);
+            pendingAction = PendingAction.valueOf(name);
+        }
+//        profileTracker = new ProfileTracker() {
+//            @Override
+//            protected void onCurrentProfileChanged(com.facebook.Profile oldProfile, com.facebook.Profile currentProfile) {
+//                // It's possible that we were waiting for Profile to be populated in order to
+//                // post a status update.
+//                handlePendingAction();
+//            }
+//        };
+    }
 }

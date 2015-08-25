@@ -22,7 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@mipmap/minus" />
+        android:background="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/item_tv_price"
@@ -52,5 +52,5 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@+id/item_tv_quantity"
-        android:background="@mipmap/plus" />
+        android:background="@mipmap/ic_launcher" />
 </RelativeLayout>

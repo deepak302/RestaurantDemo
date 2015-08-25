@@ -67,7 +67,6 @@
     <string name="prompt_nv_name">Welcome Guest</string>
     <string name="prompt_nv_email">Login to get exclusive offer</string>
 
-
     //Progress Dialog
 
     <string name="progress_reset_password">Reset Password Processing...</string>
@@ -76,5 +75,22 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+
+    //Grid Items
+
+    <string-array name="prompt_grid_Item_Type">
+        <item name="prompt_veg">VEG</item>
+        <item name="prompt_non_veg">Non VEG</item>
+        <item name="prompt_soups">Soups</item>
+        <item name="prompt_chinese">Chinese</item>
+        <item name="prompt_main_course">Main Course</item>
+        <item name="prompt_Rice_noddle">Rice/Noddles</item>
+        <item name="prompt_rolls">Rolls</item>
+        <item name="prompt_eggs">Eggs</item>
+        <item name="prompt_breads">Breads</item>
+        <item name="prompt_salad">Salads</item>
+        <item name="prompt_dessert">Desserts</item>
+        <item name="prompt_drink">Drink</item>
+    </string-array>
 
 </resources>

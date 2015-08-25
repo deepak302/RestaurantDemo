@@ -9,9 +9,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Base64;
 import android.util.Log;
@@ -21,10 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -49,6 +48,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     private TextView tvNVEmail;
     private TextView tvNVName;
+
+    private GridView gridView;
+    ArrayList<GridItem> alGridItem = new ArrayList<GridItem>();
+    private GridItem gridItem;
+    private GridAdapter gridAdapter;
+
 
     @Override
     protected void onStart() {
@@ -123,6 +128,19 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             }
         };
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        gridView = (GridView) findViewById(R.id.main_gv_item);
+        gridView.setOnItemClickListener(this);
+        String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        for (int i = 0; i < gridItems.length; i++) {
+            gridItem = new GridItem(drawable, gridItems[i], i);
+            alGridItem.add(gridItem);
+        }
+        gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, alGridItem);
+        gridView.setAdapter(gridAdapter);
+        gridAdapter.notifyDataSetChanged();
+
     }
 
     private void setProfile() {
@@ -205,11 +223,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Log.d(TAG,"View "+view);
+        Log.d(TAG,"Grid Item Click");
         switch (position) {
             case 0:
-
                 break;
             case 1:
                 Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
@@ -233,10 +249,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                     tvNVName.setText(getString(R.string.prompt_nv_name));
                     Profile.emptyProfile();
                     switch (LoginActivity.LOGIN_TYPE) {
-                        case 1://Google
+                        case 1://Simple Login
+
+                            break;
+                        case 2://Google
                             LoginActivity.loginActivity.googlePlusLogout();
                             break;
-                        case 2://Facebook
+                        case 3://Facebook
+                            LoginActivity.loginActivity.facebokLogout();
                             break;
                     }
 
