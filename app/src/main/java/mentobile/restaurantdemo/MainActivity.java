@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, ":::::::::OnCreate");
+    
         super.onCreate(savedInstanceState);
         showHashKey(getApplicationContext());
         setContentView(R.layout.activity_main);
