@@ -1,8 +1,6 @@
 package mentobile.restaurantdemo;
 
 import android.content.Context;
-import android.nfc.Tag;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +16,13 @@ import java.util.ArrayList;
  * Created by Administrator on 6/8/2015.
  */
 
-public class ListAdapter extends ArrayAdapter<ItemDetail> {
+public class BasketAdapter extends ArrayAdapter<ItemDetail> {
 
     private Context context;
     private int resourceID;
     private ArrayList<ItemDetail> arrayList = new ArrayList<>();
 
-    public ListAdapter(Context context, int resourceID, ArrayList<ItemDetail> arrayList) {
+    public BasketAdapter(Context context, int resourceID, ArrayList<ItemDetail> arrayList) {
         super(context, resourceID, arrayList);
         this.context = context;
         this.resourceID = resourceID;
@@ -56,20 +54,20 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             gridView = inflater.inflate(resourceID, viewGroup, false);
             holder = new RecordHolder();
-            holder.tvItemName = (TextView) gridView.findViewById(R.id.item_tv_name);
-            holder.tvItemQuantity = (TextView) gridView.findViewById(R.id.item_tv_quantity);
-            holder.tvItemPrice = (TextView) gridView.findViewById(R.id.item_tv_price);
-            holder.imgViewPlus = (ImageButton) gridView.findViewById(R.id.item_imgbtn_plus);
-            holder.imgViewMinus = (ImageButton) gridView.findViewById(R.id.item_imgbtn_minus);
+            holder.tvItemName = (TextView) gridView.findViewById(R.id.basket_tv_name);
+            holder.tvItemQuantity = (TextView) gridView.findViewById(R.id.basket_tv_quantity);
+            holder.tvItemPrice = (TextView) gridView.findViewById(R.id.basket_tv_price);
+            holder.imgViewPlus = (ImageButton) gridView.findViewById(R.id.basket_imgbtn_plus);
+            holder.imgViewMinus = (ImageButton) gridView.findViewById(R.id.basket_imgbtn_minus);
             gridView.setTag(holder);
         } else {
             holder = (RecordHolder) gridView.getTag();
         }
         final ItemDetail itemDetail = arrayList.get(position);
         holder.tvItemName.setText(itemDetail.getName());
-        if (itemDetail.getQuantity() > 0) {
+        if (itemDetail.getQuantity() > 1) {
             holder.tvItemQuantity.setText(itemDetail.getQuantity() + " x ");
-            holder.imgViewMinus.setVisibility(View.VISIBLE);
+          //  holder.imgViewMinus.setVisibility(View.VISIBLE);
         } else {
             holder.tvItemQuantity.setText("");
             holder.imgViewMinus.setVisibility(View.INVISIBLE);
@@ -81,15 +79,6 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
-                if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
-                    int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
-                    BasketActivity.arrListBasketItem.set(index, itemDetail);
-//                    Log.d("List Adapter ", "::::::Set" + BasketActivity.arrListBasketItem.contains(itemDetail));
-                } else {
-                    BasketActivity.arrListBasketItem.add(BasketActivity.arrListBasketItem.size(), itemDetail);
-//                    Log.d("List Adapter ", "::::::Add " + BasketActivity.arrListBasketItem.contains(itemDetail));
-                }
-
                 notifyDataSetChanged();
             }
         });
@@ -98,11 +87,8 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
-                itemDetail.setQuantity(itemDetail.getQuantity() - 1);
-                if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
-                    int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
-                    BasketActivity.arrListBasketItem.set(index, itemDetail);
-//                    Log.d("List Adapter ", "::::::Remove" + BasketActivity.arrListBasketItem.contains(itemDetail));
+                if (itemDetail.getQuantity() > 1) {
+                    itemDetail.setQuantity(itemDetail.getQuantity() - 1);
                 }
                 notifyDataSetChanged();
             }

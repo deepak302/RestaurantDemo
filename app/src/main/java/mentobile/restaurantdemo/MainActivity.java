@@ -2,6 +2,7 @@ package mentobile.restaurantdemo;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -20,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -41,7 +44,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private ArrayList<Items> arrayList;
+    private ArrayList<NvItems> arrayList;
     private SMenuAdapter sMenuAdapter;
     private ListView listView;
     private DBHandler dbHandler;
@@ -53,6 +56,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     ArrayList<GridItem> alGridItem = new ArrayList<GridItem>();
     private GridItem gridItem;
     private GridAdapter gridAdapter;
+
+    private FragmentManager manager = null;
 
 
     @Override
@@ -78,9 +83,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    
+
         super.onCreate(savedInstanceState);
-        showHashKey(getApplicationContext());
+        manager = getFragmentManager();
+//        showHashKey(getApplicationContext());
         setContentView(R.layout.activity_main);
         dbHandler = new DBHandler(getApplicationContext(), 1);
         mTitle = mDrawerTitle = getTitle();
@@ -93,11 +99,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         listView.addHeaderView(viewGroup, null, false);
 
         // drawerLayout.setDrawerShadow(R.mipmap.drawer_shadow, GravityCompat.START);
-        arrayList = new ArrayList<Items>();
+        arrayList = new ArrayList<NvItems>();
         String nv_array[] = getResources().getStringArray(
                 R.array.prompt_nv_drawer);
         for (int i = 0; i < nv_array.length; i++) {
-            Items items = new Items(R.mipmap.ic_launcher, nv_array[i], null, false);
+            NvItems items = new NvItems(R.mipmap.ic_launcher, nv_array[i], null, false);
             arrayList.add(items);
         }
         sMenuAdapter = new SMenuAdapter(getApplicationContext(),
@@ -146,7 +152,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private void setProfile() {
         String email = Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email");
         if (email != null && email.length() > 5) {
-            Items items = (Items) arrayList.get(5);
+            NvItems items = (NvItems) arrayList.get(5);
             items.setTitle(getString(R.string.prompt_logout));
             sMenuAdapter.notifyDataSetChanged();
             Cursor cursor = dbHandler.getPRofileDataFromDB(email);
@@ -223,48 +229,57 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG,"Grid Item Click");
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                Log.d(TAG, "::::::Clear SP " + Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email"));
-                if (Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email") != null) {
+        if (parent.getId() == R.id.main_gv_item) {
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+            view.startAnimation(animation);
+            Intent intent = new Intent(MainActivity.this, SelectedActivity.class);
+            intent.putExtra("frag", position);
+            startActivity(intent);
+
+        } else if (parent.getId() == R.id.main_lv_nvdrawer) {
+
+            switch (position) {
+                case 0:
+                    break;
+                case 1:
                     Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
-                    Items items = (Items) arrayList.get(position - 1);
-                    items.setTitle(getString(R.string.prompt_login));
-                    sMenuAdapter.notifyDataSetChanged();
-                    tvNVEmail.setText(getString(R.string.prompt_nv_email));
-                    tvNVName.setText(getString(R.string.prompt_nv_name));
-                    Profile.emptyProfile();
-                    switch (LoginActivity.LOGIN_TYPE) {
-                        case 1://Simple Login
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    Log.d(TAG, "::::::Clear SP " + Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email"));
+                    if (Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email") != null) {
+                        Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
+                        NvItems items = (NvItems) arrayList.get(position - 1);
+                        items.setTitle(getString(R.string.prompt_login));
+                        sMenuAdapter.notifyDataSetChanged();
+                        tvNVEmail.setText(getString(R.string.prompt_nv_email));
+                        tvNVName.setText(getString(R.string.prompt_nv_name));
+                        Profile.emptyProfile();
+                        switch (LoginActivity.LOGIN_TYPE) {
+                            case 1://Simple Login
 
-                            break;
-                        case 2://Google
-                            LoginActivity.loginActivity.googlePlusLogout();
-                            break;
-                        case 3://Facebook
-                            LoginActivity.loginActivity.facebokLogout();
-                            break;
+                                break;
+                            case 2://Google
+                                LoginActivity.loginActivity.googlePlusLogout();
+                                break;
+                            case 3://Facebook
+                                LoginActivity.loginActivity.facebokLogout();
+                                break;
+                        }
+
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     }
-
-                } else {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                break;
+                    break;
+            }
         }
     }
 }

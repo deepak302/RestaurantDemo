@@ -10,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class SMenuAdapter extends ArrayAdapter<Items> {
+public class SMenuAdapter extends ArrayAdapter<NvItems> {
 
 	private Context context;;
-	private ArrayList<Items> arrayList = new ArrayList<Items>();
+	private ArrayList<NvItems> arrayList = new ArrayList<NvItems>();
 	private int resourceID;
 
-	public SMenuAdapter(Context context, int resourceId, ArrayList<Items> data) {
+	public SMenuAdapter(Context context, int resourceId, ArrayList<NvItems> data) {
 		// TODO Auto-generated constructor stub
 		super(context, resourceId, data);
 		this.context = context;
@@ -31,7 +31,7 @@ public class SMenuAdapter extends ArrayAdapter<Items> {
 	}
 
 	@Override
-	public Items getItem(int arg0) {
+	public NvItems getItem(int arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -62,7 +62,7 @@ public class SMenuAdapter extends ArrayAdapter<Items> {
 			holder = (RecordHolder) gridView.getTag();
 			value = 5 ;
 		}
-		Items item = arrayList.get(position);
+		NvItems item = arrayList.get(position);
 		holder.imageView.setBackgroundResource(item.getImage());
 		holder.textview.setText(item.getTitle());
 		return gridView;

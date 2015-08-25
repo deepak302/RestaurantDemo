@@ -6,13 +6,13 @@ package mentobile.restaurantdemo;
  *
  */
 
-public class Items {
+public class NvItems {
 	private int image_ResID;
 	private String title;
 	private String description;
 	private boolean isChecked;
 
-	public Items(int image_ResID, String title, String description,
+	public NvItems(int image_ResID, String title, String description,
 			boolean isChecked) {
 		super();
 		this.image_ResID = image_ResID;

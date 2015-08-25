@@ -3,4 +3,18 @@
     android:id="@+id/selected_viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectedActivity" />
+    tools:context=".SelectedActivity">
+
+    <Button
+        android:id="@+id/selected_btn_basket"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:text="Add to Basket"
+        android:textColor="#ffffff"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

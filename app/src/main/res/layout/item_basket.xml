@@ -3,54 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="80dp">
 
-    <TextView
-        android:id="@+id/item_tv_name"
+    <ImageButton
+        android:id="@+id/basket_imgbtn_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:text="Item Name"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/minus"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/basket_tv_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/basket_imgbtn_minus"
+        android:text="1 x "
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/basket_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/basket_tv_quantity"
+        android:text="basket Name"
         android:textColor="#ff996a2b"
         android:textIsSelectable="false"
         android:textSize="17sp"
         android:typeface="normal" />
 
     <ImageButton
-        android:id="@+id/item_imgbtn_minus"
+        android:id="@+id/basket_imgbtn_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:visibility="invisible"
+        android:layout_toRightOf="@+id/basket_tv_name"
+        android:background="@mipmap/plus" />
+
+    <TextView
+        android:id="@+id/basket_tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:visibility="invisible"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@mipmap/minus" />
-
-    <TextView
-        android:id="@+id/item_tv_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/item_imgbtn_minus"
+        android:layout_marginRight="20dp"
         android:text="$160.00"
         android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/item_tv_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/item_tv_price"
-        android:text="1 x "
-        android:textSize="17sp" />
-
-    <ImageButton
-        android:id="@+id/item_imgbtn_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/item_tv_quantity"
-        android:background="@mipmap/plus" />
 </RelativeLayout>

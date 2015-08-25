@@ -92,5 +92,6 @@
         <item name="prompt_dessert">Desserts</item>
         <item name="prompt_drink">Drink</item>
     </string-array>
+    <string name="title_activity_basket">BasketActivity</string>
 
 </resources>

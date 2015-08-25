@@ -21,18 +21,21 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -76,11 +79,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SelectedActivity"
-            android:label="@string/title_activity_selected" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_selected"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BasketActivity"
+            android:label="@string/title_activity_basket"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
