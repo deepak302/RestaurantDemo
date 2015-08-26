@@ -1,6 +1,7 @@
 package mentobile.restaurantdemo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,7 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             gridView = inflater.inflate(resourceID, viewGroup, false);
             holder = new RecordHolder();
+            holder.tvItemCounter = (TextView) gridView.findViewById(R.id.basket_tv_item_counter);
             holder.tvItemName = (TextView) gridView.findViewById(R.id.basket_tv_name);
             holder.tvItemQuantity = (TextView) gridView.findViewById(R.id.basket_tv_quantity);
             holder.tvItemPrice = (TextView) gridView.findViewById(R.id.basket_tv_price);
@@ -64,21 +68,26 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
             holder = (RecordHolder) gridView.getTag();
         }
         final ItemDetail itemDetail = arrayList.get(position);
+        holder.tvItemCounter.setText((position + 1) + ". ");
+        Log.d("    ", ":::::::::Basket " + position);
         holder.tvItemName.setText(itemDetail.getName());
-        if (itemDetail.getQuantity() > 1) {
-            holder.tvItemQuantity.setText(itemDetail.getQuantity() + " x ");
-          //  holder.imgViewMinus.setVisibility(View.VISIBLE);
+        holder.tvItemQuantity.setText(itemDetail.getQuantity() + " x ");
+        holder.tvItemPrice.setText("$" + itemDetail.getPriceOverQuantity());
+        if (ItemDetail.isEditItem) {
+            holder.imgViewPlus.setVisibility(View.VISIBLE);
+            holder.imgViewMinus.setVisibility(View.VISIBLE);
         } else {
-            holder.tvItemQuantity.setText("");
-            holder.imgViewMinus.setVisibility(View.INVISIBLE);
+            holder.imgViewPlus.setVisibility(View.GONE);
+            holder.imgViewMinus.setVisibility(View.GONE);
         }
-        holder.tvItemPrice.setText("$" + itemDetail.getPrice());
         holder.imgViewPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
+                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() + itemDetail.getPrice());
+                BasketActivity.tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
                 notifyDataSetChanged();
             }
         });
@@ -87,19 +96,22 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
-                if (itemDetail.getQuantity() > 1) {
-                    itemDetail.setQuantity(itemDetail.getQuantity() - 1);
+                itemDetail.setQuantity(itemDetail.getQuantity() - 1);
+                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() - itemDetail.getPrice());
+                if (itemDetail.getQuantity() < 1 && arrayList.contains(itemDetail)) {
+                    arrayList.remove(itemDetail);
                 }
+                BasketActivity.tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
                 notifyDataSetChanged();
             }
         });
-
         return gridView;
     }
 
     static class RecordHolder {
         ImageButton imgViewPlus;
         ImageButton imgViewMinus;
+        TextView tvItemCounter;
         TextView tvItemName;
         TextView tvItemQuantity;
         TextView tvItemPrice;

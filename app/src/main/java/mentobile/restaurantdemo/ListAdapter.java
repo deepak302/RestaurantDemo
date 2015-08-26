@@ -81,6 +81,8 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
+                Log.d("ListAdapter ", ":::::Price " + ItemDetail.getTotalPrice() + "getPrice   " + itemDetail.getPriceOverQuantity());
+                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() + itemDetail.getPrice());
                 if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
                     int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
                     BasketActivity.arrListBasketItem.set(index, itemDetail);
@@ -89,7 +91,6 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                     BasketActivity.arrListBasketItem.add(BasketActivity.arrListBasketItem.size(), itemDetail);
 //                    Log.d("List Adapter ", "::::::Add " + BasketActivity.arrListBasketItem.contains(itemDetail));
                 }
-
                 notifyDataSetChanged();
             }
         });
@@ -99,9 +100,13 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() - 1);
+                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() - itemDetail.getPrice());
                 if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
                     int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
                     BasketActivity.arrListBasketItem.set(index, itemDetail);
+                    if (itemDetail.getQuantity() < 1) {
+                        BasketActivity.arrListBasketItem.remove(index);
+                    }
 //                    Log.d("List Adapter ", "::::::Remove" + BasketActivity.arrListBasketItem.contains(itemDetail));
                 }
                 notifyDataSetChanged();

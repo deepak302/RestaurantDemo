@@ -38,8 +38,12 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
         btnAddToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectedActivity.this, BasketActivity.class);
-                startActivity(intent);
+                if (BasketActivity.arrListBasketItem.size() < 1) {
+                    Toast.makeText(SelectedActivity.this, R.string.msg_bucket_item, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(SelectedActivity.this, BasketActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

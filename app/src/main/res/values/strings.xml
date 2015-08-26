@@ -30,20 +30,26 @@
     <string name="prompt_title_signup">Create Account</string>
     <string name="prompt_ed_firstname">First Name</string>
     <string name="prompt_ed_lasttname">Last Name</string>
-    <string name="prompt_ed_email">Please enter your Email</string>
+    <string name="prompt_ed_email">Email id</string>
     <string name="prompt_ed_mobile">Mobile</string>
     <string name="prompt_tv_contact">Contact</string>
     <string name="prompt_ed_fname">First Name</string>
     <string name="prompt_ed_lname">Last Name</string>
+    <string name="prompt_ed_full_name">Full Name</string>
+    <string name="prompt_ed_phone">Phone Number</string>
+    <string name="prompt_ed_delivery_address">Delivery Address</string>
     <string name="prompt_ed_password">Password</string>
     <string name="prompt_ed_cpassword">Confirm Password</string>
     <string name="prompt_tv_address">Address</string>
     <string name="prompt_ed_city">City</string>
+    <string name="prompt_ed_state">State</string>
+    <string name="prompt_ed_landmark">Landmark (optional)</string>
+
     <string name="prompt_ed_location">Location</string>
     <string name="prompt_ed_company">Company(optional)</string>
     <string name="prompt_ed_houseno">"Flat No./ House No."</string>
     <string name="prompt_ed_locality">"Apartment / Locality name"</string>
-    <string name="prompt_ed_postcode">PostCode(optional)</string>
+    <string name="prompt_ed_postcode">Pincode</string>
     <string name="prompt_ed_other_address">Other Address(optional)</string>
     <string name="prompt_ed_delivery">Delivery instruction(Optional)</string>
     <string name="prompt_chk_tc">Yes, I have read and accepted terms and conditions.</string>
@@ -71,7 +77,6 @@
 
     <string name="progress_reset_password">Reset Password Processing...</string>
     <string name="title_activity_selected">SelectedActivity</string>
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -93,5 +98,6 @@
         <item name="prompt_drink">Drink</item>
     </string-array>
     <string name="title_activity_basket">BasketActivity</string>
+
 
 </resources>

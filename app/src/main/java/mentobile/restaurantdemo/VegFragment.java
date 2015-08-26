@@ -41,4 +41,10 @@ public class VegFragment extends Fragment {
         listView.setAdapter(listAdapter);
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listAdapter.notifyDataSetChanged();
+    }
 }
