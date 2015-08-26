@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddressFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/address_tv_header"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:text="Delivery Address"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/address_lv_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_tv_header"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/address_btn_new_aadress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_lv_address"
+        android:background="@drawable/button_selector"
+        android:text="Add New Address"
+        android:textColor="#ffefe9ef"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/address_rl_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_btn_new_aadress"
+        android:layout_margin="20dp"
+        android:scrollbars="vertical"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/address_ed_email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_ed_email"
+            android:maxLength="50"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/address_ed_fullname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="50"
+            android:hint="@string/prompt_ed_full_name"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/address_ed_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="@string/prompt_ed_phone"
+            android:maxLength="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/address_ed_pincode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="6"
+            android:hint="@string/prompt_ed_postcode"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/address_ed_delivery_aadress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="200"
+            android:hint="@string/prompt_ed_delivery_address"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/address_ed_city"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="30"
+            android:hint="@string/prompt_ed_city"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/address_ed_state"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="30"
+            android:hint="@string/prompt_ed_state"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/address_ed_landmark"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="100"
+            android:hint="@string/prompt_ed_landmark"
+            android:inputType="textAutoComplete" />
+
+    </LinearLayout>
+
+</RelativeLayout>
