@@ -33,6 +33,7 @@ public class JsonParser {
     final String TAG = "JsonParser";
     static JSONObject jObj = null;
     static String json = "";
+    String url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 
     // constructor
     public JsonParser() {
@@ -76,7 +77,7 @@ public class JsonParser {
             }
 
             json = sb.toString();
-            Log.d("JSON ",":::::::::JSon "+json.toString());
+            Log.d("JSON ", ":::::::::JSon " + json.toString());
         } catch (Exception e) {
             Log.e("Buffer Error", "::::Error converting result " + e.toString());
         }

@@ -1,6 +1,8 @@
 package mentobile.restaurantdemo;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,12 +27,14 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     private TextView tvAddItem;
     private Button btnCountinue;
     public static TextView tvTotalPrice;
+    private FragmentManager manager ;
     public static ArrayList<ItemDetail> arrListBasketItem = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
+        manager = getFragmentManager() ;
         tvEditItem = (TextView) findViewById(R.id.basket_tv_edit_item);
         tvEditItem.setOnClickListener(this);
         tvAddItem = (TextView) findViewById(R.id.basket_tv_add_item);
@@ -40,7 +44,7 @@ public class BasketActivity extends Activity implements View.OnClickListener {
         tvTotalPrice = (TextView) findViewById(R.id.basket_tv_your_total_price);
         tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
         listView = (ListView) findViewById(R.id.basket_lv_item);
-        listView.setEnabled(false);
+//        listView.setEnabled(false);
         basketAdapter = new BasketAdapter(getApplicationContext(), R.layout.item_basket, arrListBasketItem);
         listView.setAdapter(basketAdapter);
     }
@@ -77,6 +81,10 @@ public class BasketActivity extends Activity implements View.OnClickListener {
                 onBackPressed();
                 break;
             case R.id.basket_btn_countinue:
+                FragmentTransaction transaction = manager.beginTransaction() ;
+                transaction.replace(android.R.id.content, new AddressFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
                 break;
         }
     }

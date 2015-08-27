@@ -11,6 +11,7 @@ import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -28,11 +29,16 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.apache.http.NameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import mentobile.utils.DBHandler;
+import mentobile.utils.JsonParser;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -65,6 +71,21 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         super.onStart();
         setProfile();
         Log.d(TAG, ":::::::::ONstart");
+//        new AsyncTask<String, String, String>() {
+//            @Override
+//            protected String doInBackground(String... params) {
+//                JsonParser parser = new JsonParser();
+//                ArrayList<NameValuePair> listValue = new ArrayList<NameValuePair>();
+//                JSONObject jsonObject = parser.makeHttpRequest("122001", listValue);
+//                try {
+//                    Log.d(TAG,":::::Value "+jsonObject.getString("results"));
+//                    Log.d(TAG,":::::Value1 "+jsonObject.getJSONObject("address_components").get("long_name"));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                return "";
+//            }
+//        }.execute();
     }
 
     public static void showHashKey(Context context) {

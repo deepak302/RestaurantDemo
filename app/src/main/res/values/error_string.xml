@@ -4,14 +4,19 @@
     //Prompt Message
     <string name ="error_username">"Username can't be blank"</string>
 	<string name ="error_password">"Password can't be blank"</string>
+	<string name ="error_email_empty_email">"Email can't be blank"</string>
     <string name ="error_email_verify">Invalid Email id </string>
+	<string name ="error_name">"Name can't be blank"</string>
     <string name ="error_fname">Please enter your First Name</string>
     <string name ="error_lname">Please enter your Last Name</string>
-	<string name ="error_mobile">Please enter your Mobile Number</string>
+	<string name ="error_mobile">Invalid Phone Number</string>
 	<string name ="error_cpassword">Please enter Valid Confirm Password</string>
-	<string name ="error_city">Please enter your City name</string>
+	<string name ="error_city">"City name can't be blank"</string>
+	<string name ="error_state">"State name can't be blank"</string>
 	<string name ="error_flat">Please enter your Flat Number</string>
 	<string name ="error_tc">"Please accept our TC"</string>
+	<string name ="error_pincode">"Pincode can't be blank"</string>
+	<string name ="error_delivery_address">"Delivery Address can't be blank"</string>
 
 	//Toast Message
 	<string name ="msg_bucket_item">Please add any Item to Bucket</string>

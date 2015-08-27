@@ -46,7 +46,7 @@
         android:id="@+id/basket_tv_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/basket_btn_payment"
+        android:layout_above="@+id/basket_btn_countinue"
         android:layout_marginLeft="20dp"
         android:text="Total:"
         android:textColor="#ffad32ff"

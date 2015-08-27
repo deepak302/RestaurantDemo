@@ -17,6 +17,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "RestauraneDemo.db";
     public static final String TABLE_USER_PROFILE = "tbl_user_profile";
+    public static final String TABLE_DELIVERY_ADDRESS = "tbl_del_address";
     public static final String CRT_UPLOAD = "CREATE TABLE IF NOT EXISTS "
             + TABLE_USER_PROFILE
             + "(FNAME VARCHAR , " +
@@ -33,6 +34,17 @@ public class DBHandler extends SQLiteOpenHelper {
             "   OTHERADDRESS VARCHAR, " +
             "   DELINS VARCHAR )";
 
+    public static final String CRT_DELVRY_ADDRESS = "CREATE TABLE IF NOT EXISTS "
+            + TABLE_DELIVERY_ADDRESS
+            + "( EMAIL VARCHAR PRIMARY KEY NOT NULL UNIQUE, " +
+            "   FULLNAME VARCHAR, " +
+            "   PHONE VARCHAR, " +
+            "   PINCODE VARCHAR, " +
+            "   DELIVERY_ADDRESS VARCHAR , " +
+            "   CITY VARCHAR, " +
+            "   STATE VARCHAR, " +
+            "   LANDMARK VARCHAR )";
+
     public DBHandler(Context context, int version) {
         super(context, DATABASE_NAME, null, version);
         Log.d(TAG, "::::::DBHandler");
@@ -43,6 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CRT_UPLOAD);
+        db.execSQL(CRT_DELVRY_ADDRESS);
         Log.d(TAG, "::::::OnCreate");
     }
 
@@ -64,6 +77,13 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor getPRofileDataFromDB(String emailID) {
         SQLiteDatabase db = getReadableDatabase();
         String selectData = "SELECT * FROM " + TABLE_USER_PROFILE + " WHERE email=" + "'" + emailID + "'";
+        Cursor cursor = db.rawQuery(selectData, null);
+        return cursor;
+    }
+
+    public Cursor getAllDeliveryAddress() {
+        SQLiteDatabase db = getReadableDatabase();
+        String selectData = "SELECT * FROM " + TABLE_DELIVERY_ADDRESS;
         Cursor cursor = db.rawQuery(selectData, null);
         return cursor;
     }

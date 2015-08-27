@@ -18,13 +18,13 @@ import java.util.ArrayList;
  * Created by Administrator on 6/8/2015.
  */
 
-public class AddressAdapter extends ArrayAdapter<ItemDetail> {
+public class AddressAdapter extends ArrayAdapter<AddressItem> {
 
     private Context context;
     private int resourceID;
-    private ArrayList<ItemDetail> arrayList = new ArrayList<>();
+    private ArrayList<AddressItem> arrayList = new ArrayList<>();
 
-    public AddressAdapter(Context context, int resourceID, ArrayList<ItemDetail> arrayList) {
+    public AddressAdapter(Context context, int resourceID, ArrayList<AddressItem> arrayList) {
         super(context, resourceID, arrayList);
         this.context = context;
         this.resourceID = resourceID;
@@ -37,7 +37,7 @@ public class AddressAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     @Override
-    public ItemDetail getItem(int position) {
+    public AddressItem getItem(int position) {
         return null;
     }
 
@@ -62,8 +62,8 @@ public class AddressAdapter extends ArrayAdapter<ItemDetail> {
         } else {
             holder = (RecordHolder) gridView.getTag();
         }
-        final ItemDetail itemDetail = arrayList.get(position);
-//        holder.tvAddress.setText();
+        final AddressItem addressItem = arrayList.get(position);
+        holder.tvAddress.setText(addressItem.getFullAddress());
         return gridView;
     }
 
