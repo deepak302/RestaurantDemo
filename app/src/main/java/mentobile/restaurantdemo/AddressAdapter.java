@@ -9,8 +9,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -49,7 +51,7 @@ public class AddressAdapter extends ArrayAdapter<AddressItem> {
     RecordHolder holder = null;
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         View gridView = convertView;
         if (gridView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -58,18 +60,28 @@ public class AddressAdapter extends ArrayAdapter<AddressItem> {
             holder = new RecordHolder();
             holder.tvAddress = (TextView) gridView.findViewById(R.id.addrow_tv_select);
             holder.rbSelectAddress = (RadioButton) gridView.findViewById(R.id.addrow_rb_select);
+            holder.imgBtnDeleteItem = (ImageView) gridView.findViewById(R.id.addrow_img_delete);
             gridView.setTag(holder);
         } else {
             holder = (RecordHolder) gridView.getTag();
         }
         final AddressItem addressItem = arrayList.get(position);
         holder.tvAddress.setText(addressItem.getFullAddress());
+        holder.rbSelectAddress.setChecked(addressItem.isAddessSelected());
+        holder.imgBtnDeleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList.remove(position);
+                notifyDataSetChanged();
+                Toast.makeText(context, R.string.prompt_toast_addrow_delete, Toast.LENGTH_SHORT).show();
+            }
+        });
         return gridView;
     }
 
     static class RecordHolder {
         RadioButton rbSelectAddress;
         TextView tvAddress;
-
+        ImageView imgBtnDeleteItem;
     }
 }

@@ -99,6 +99,12 @@
     </string-array>
     <string name="title_activity_basket">BasketActivity</string>
     <string name="title_activity_wallet">WalletActivity</string>
+    <string name="title_activity_address">AddressActivity</string>
+
+
+    //Toast Message
+
+    <string name="prompt_toast_addrow_delete">Address Deleted...</string>
 
 
 </resources>

@@ -2,51 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:background="#ffffff"
-    tools:context=".AddressFragment">
+    tools:context=".NewAddressFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/address_tv_delivery_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/prompt_ed_delivery_address"
+        android:textColor="#ff0000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/address_lv_address"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:id="@+id/address_btn_new_aadress"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/address_lv_address"
-        android:layout_margin="10dp"
-        android:background="@drawable/abc_textfield_search_material"
-        android:text="Add New Address"
-        android:textColor="#ff4eccff"
-        android:textSize="20sp" />
-
-    <!--<ScrollView
-        android:id="@+id/address_scrollview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/address_btn_payment"
-        android:layout_below="@+id/address_btn_new_aadress"
-        android:layout_margin="20dp"
-        android:visibility="gone">
+        android:layout_below="@+id/address_tv_delivery_address">
 
         <LinearLayout
+            android:id="@+id/address_ll_main"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/address_tv_delivery_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="@string/prompt_ed_delivery_address"
-                android:textColor="#ff0000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/address_ed_email"
@@ -118,19 +99,41 @@
                 android:hint="@string/prompt_ed_landmark"
                 android:inputType="textAutoComplete"
                 android:maxLength="100" />
-        </LinearLayout>
-    </ScrollView>-->
 
-    <Button
-        android:id="@+id/address_btn_payment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_selector"
-        android:text="Proceed to Payment"
-        android:textColor="#ffefe9ef"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/address_ed_landmark"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/address_btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/button_selector"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Save"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/address_btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/address_btn_save"
+                    android:background="@drawable/button_selector"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Cancel"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

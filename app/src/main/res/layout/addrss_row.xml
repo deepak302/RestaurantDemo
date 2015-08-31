@@ -8,7 +8,9 @@
         android:id="@+id/addrow_rb_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:clickable="false"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/addrow_tv_select"
@@ -16,8 +18,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_toRightOf="@+id/addrow_rb_select"
-        android:text="A-22, Street no 5, Near Sheetla Mata Mandir, Gurgaon, Haryana,Pin 281405"
+        android:layout_toLeftOf="@+id/addrow_img_delete"
+        android:text="A-22, Street no 5, Near Sheetla sssMata Mandir, Gurgaon, Haryana,Pin 281405"
         android:textColor="#000000"
         android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/addrow_img_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@mipmap/close" />
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package mentobile.restaurantdemo;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -45,6 +47,19 @@ public class Application {
     public static void clearSharedPreferenceFile(Activity activity, String fileName) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(fileName, Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
+    }
+
+
+    public static void removeFragment(Fragment fragment, Activity activity) {
+        if (fragment != null && activity != null) {
+            try {
+                FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+                activity.getFragmentManager().popBackStack();
+                transaction.detach(fragment).commit();
+            } catch (Exception e) {
+
+            }
+        }
     }
 
 }

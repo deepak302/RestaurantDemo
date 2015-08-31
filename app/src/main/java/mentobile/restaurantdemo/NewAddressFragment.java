@@ -3,36 +3,21 @@ package mentobile.restaurantdemo;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import mentobile.utils.DBHandler;
-import mentobile.utils.JsonParser;
 
-public class AddressFragment extends Fragment implements View.OnClickListener {
 
-    private Button btnAddNewAddress;
-    private Button btnProceedToPayment;
+public class NewAddressFragment extends Fragment implements View.OnClickListener {
 
     private EditText edEmail;
     private EditText edFullName;
@@ -43,40 +28,24 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     private EditText edState;
     private EditText edLandmark;
 
-    private ScrollView scrollView;
-    private ListView listView;
-    private AddressAdapter addressAdapter;
-    private ArrayList<AddressItem> arrayList = new ArrayList<>();
-    private DBHandler dbHandler;
+    private Button btnSave;
+    private Button btnCancel;
 
-    public AddressFragment() {
+
+    public NewAddressFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbHandler = new DBHandler(getActivity(), 1);
-//        if (!dbHandler.isTableEmplty(DBHandler.TABLE_DELIVERY_ADDRESS)) {
-//            Cursor cursor = dbHandler.getAllDeliveryAddress();
-//            while (cursor.moveToNext()) {
-//                AddressItem addressItem = new AddressItem(cursor.getString(0), cursor.getString(1), cursor.getString(2),
-//                        cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
-//                arrayList.add(addressItem);
-//            }
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_address, container, false);
-        btnAddNewAddress = (Button) view.findViewById(R.id.address_btn_new_aadress);
-        btnAddNewAddress.setOnClickListener(this);
-        btnProceedToPayment = (Button) view.findViewById(R.id.address_btn_payment);
-        btnProceedToPayment.setOnClickListener(this);
-
+        View view = inflater.inflate(R.layout.fragment_new_address, container, false);
         edEmail = (EditText) view.findViewById(R.id.address_ed_email);
         edFullName = (EditText) view.findViewById(R.id.address_ed_fullname);
         edPhoneNumber = (EditText) view.findViewById(R.id.address_ed_phone);
@@ -86,36 +55,14 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
         edState = (EditText) view.findViewById(R.id.address_ed_state);
         edLandmark = (EditText) view.findViewById(R.id.address_ed_landmark);
 
-        scrollView = (ScrollView) view.findViewById(R.id.address_scrollview);
-        for (int i = 0; i < 3; i++) {
-            AddressItem addressItem = new AddressItem("deepak@gmail.com", "deepak", "8826510669", "22001", "Sheetla coloy", "Gurgaon", "Haryana", "Near Patrol Pump");
-            arrayList.add(addressItem);
-        }
-        listView = (ListView) view.findViewById(R.id.address_lv_address);
-        addressAdapter = new AddressAdapter(getActivity(), R.layout.addrss_row, arrayList);
-        listView.setAdapter(addressAdapter);
+        btnSave = (Button) view.findViewById(R.id.address_btn_save);
+        btnSave.setOnClickListener(this);
+        btnCancel = (Button) view.findViewById(R.id.address_btn_cancel);
+        btnCancel.setOnClickListener(this);
         return view;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.address_btn_new_aadress:
-                scrollView.setVisibility(View.VISIBLE);
-                btnAddNewAddress.setVisibility(View.GONE);
-                break;
-            case R.id.address_btn_payment:
-                setAddress();
-                break;
-        }
-    }
-
-    private void setAddress() {
+    private void newAddress() {
 
         String email = edEmail.getText().toString().trim();
         String fullname = edFullName.getText().toString().trim();
@@ -151,8 +98,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
             edState.setError(getString(R.string.error_state));
             edState.requestFocus();
         } else {
-            AddressItem addressItem = new AddressItem(email, fullname, phonenumber, pincode, address, city, state, "" + landmark);
-            arrayList.add(addressItem);
+//            AddressItem addressItem = new AddressItem(email, fullname, phonenumber, pincode, address, city, state, "" + landmark);
             Toast.makeText(getActivity(), "Wallet Activity", Toast.LENGTH_SHORT).show();
             ContentValues values = new ContentValues();
             values.put("EMAIL", email);
@@ -163,9 +109,24 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
             values.put("CITY", city);
             values.put("STATE", state);
             values.put("LANDMARK", landmark);
-            dbHandler.insertData(DBHandler.TABLE_DELIVERY_ADDRESS, values);
-            Intent intentWallet = new Intent(getActivity(), WalletActivity.class);
-            startActivity(intentWallet);
+            AddressActivity.dbHandler.insertData(DBHandler.TABLE_DELIVERY_ADDRESS, values);
+            Intent intent = new Intent(getActivity(), WalletActivity.class);
+            startActivity(intent);
+            getActivity().getFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.address_btn_save:
+                newAddress();
+                break;
+
+            case R.id.address_btn_cancel:
+                Application.removeFragment(this,getActivity());
+                break;
+
         }
     }
 }
