@@ -105,7 +105,7 @@
     //Toast Message
 
     <string name="prompt_toast_addrow_delete">Address Deleted...</string>
-    <string name="prompt_toast_address_allow">Only Four Address Allowed to save.</string>
+    <string name="prompt_toast_address_allow">Only Four Address Allowed to save in Your account.</string>
 
 
 </resources>

@@ -256,6 +256,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             Intent intent = new Intent(MainActivity.this, SelectedActivity.class);
             intent.putExtra("frag", position);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         } else if (parent.getId() == R.id.main_lv_nvdrawer) {
 

@@ -32,6 +32,12 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     public static ArrayList<ItemDetail> arrListBasketItem = new ArrayList<>();
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
@@ -84,6 +90,7 @@ public class BasketActivity extends Activity implements View.OnClickListener {
             case R.id.basket_btn_countinue:
                 Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
     }

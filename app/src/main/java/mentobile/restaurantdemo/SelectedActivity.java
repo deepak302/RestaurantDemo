@@ -29,6 +29,13 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     private Button btnAddToBasket;
     private FragmentManager manager;
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +62,7 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
                 } else {
                     Intent intent = new Intent(SelectedActivity.this, BasketActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });
