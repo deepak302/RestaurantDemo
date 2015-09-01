@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -24,7 +25,7 @@ import mentobile.utils.DBHandler;
 
 public class AddressActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    String TAG = "AddressActivity" ;
+    String TAG = "AddressActivity";
     private Button btnAddNewAddress;
     private Button btnProceedToPayment;
 
@@ -49,12 +50,6 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, ":::::OnStart Address");
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
@@ -64,11 +59,12 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         btnAddNewAddress.setOnClickListener(this);
         btnProceedToPayment = (Button) findViewById(R.id.address_btn_payment);
         btnProceedToPayment.setOnClickListener(this);
-//
+
 //        for (int i = 0; i < 3; i++) {
 //            AddressItem addressItem = new AddressItem("deepak@gmail.com", "deepak", "8826510669", "22001", "Sheetla coloy", "Gurgaon", "Haryana", "Near Patrol Pump");
 //            arrayList.add(addressItem);
 //        }
+
         listView = (ListView) findViewById(R.id.address_lv_address);
         listView.setOnItemClickListener(this);
         addressAdapter = new AddressAdapter(this, R.layout.addrss_row, arrayList);
@@ -79,10 +75,14 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.address_btn_new_aadress:
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(android.R.id.content, new NewAddressFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (arrayList.size() < 5) {
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(android.R.id.content, new NewAddressFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.prompt_toast_address_allow), Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.address_btn_payment:

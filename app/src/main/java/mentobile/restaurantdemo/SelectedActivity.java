@@ -10,7 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import mentobile.categary.BreadsFragment;
+import mentobile.categary.ChineseFragment;
+import mentobile.categary.DessertsFragment;
+import mentobile.categary.DrinksFragment;
+import mentobile.categary.EggsFragment;
+import mentobile.categary.MainCourseFragment;
 import mentobile.categary.NonVegFragment;
+import mentobile.categary.RiceFragment;
+import mentobile.categary.RollsFragment;
+import mentobile.categary.SaladFragment;
+import mentobile.categary.SoupsFragment;
 
 public class SelectedActivity extends Activity implements ActionBar.TabListener {
 
@@ -59,10 +69,37 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
             case 1://NonVeg Food
                 ft.replace(android.R.id.content, new NonVegFragment());
                 break;
-            case 2:
+            case 2://Soups
+                ft.replace(android.R.id.content, new SoupsFragment());
                 break;
-            case 3:
+            case 3://Chiense
+                ft.replace(android.R.id.content, new ChineseFragment());
                 break;
+            case 4://Main Course
+                ft.replace(android.R.id.content, new MainCourseFragment());
+                break;
+            case 5://Rice& noddles
+                ft.replace(android.R.id.content, new RiceFragment());
+                break;
+            case 6://Rolls
+                ft.replace(android.R.id.content, new RollsFragment());
+                break;
+            case 7://Eggs
+                ft.replace(android.R.id.content, new EggsFragment());
+                break;
+            case 8://Breads
+                ft.replace(android.R.id.content, new BreadsFragment());
+                break;
+            case 9://Salad
+                ft.replace(android.R.id.content, new SaladFragment());
+                break;
+            case 10://Desserts
+                ft.replace(android.R.id.content, new DessertsFragment());
+                break;
+            case 11://Drinks
+                ft.replace(android.R.id.content, new DrinksFragment());
+                break;
+
 
         }
     }
