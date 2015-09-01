@@ -21,6 +21,7 @@ import mentobile.categary.RiceFragment;
 import mentobile.categary.RollsFragment;
 import mentobile.categary.SaladFragment;
 import mentobile.categary.SoupsFragment;
+import mentobile.categary.VegFragment;
 
 public class SelectedActivity extends Activity implements ActionBar.TabListener {
 

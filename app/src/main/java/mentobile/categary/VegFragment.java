@@ -1,4 +1,4 @@
-package mentobile.restaurantdemo;
+package mentobile.categary;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import mentobile.restaurantdemo.ItemDetail;
+import mentobile.restaurantdemo.ListAdapter;
+import mentobile.restaurantdemo.R;
 
 public class VegFragment extends Fragment {
 
