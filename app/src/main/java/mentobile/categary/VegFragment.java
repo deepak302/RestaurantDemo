@@ -2,6 +2,7 @@ package mentobile.categary;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class VegFragment extends Fragment {
     String TAG = "VegFragment";
     private ListView listView;
     private ListAdapter listAdapter;
-    private ArrayList<ItemDetail> arrayList = new ArrayList<>();
+    ArrayList<ItemDetail> arrayList = new ArrayList<>();
 
 
     public VegFragment() {
@@ -29,6 +30,7 @@ public class VegFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,":::::ON Create Veg Fragment "+savedInstanceState);
     }
 
     @Override

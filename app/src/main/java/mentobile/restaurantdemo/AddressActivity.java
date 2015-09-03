@@ -42,7 +42,6 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();

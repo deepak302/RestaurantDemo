@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mentobile.categary.BreadsFragment;
 import mentobile.categary.ChineseFragment;
 import mentobile.categary.DessertsFragment;
@@ -28,6 +30,19 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     private ActionBar actionBar;
     private Button btnAddToBasket;
     private FragmentManager manager;
+    public ArrayList<ItemDetail> arrayList = new ArrayList<>();
+    private VegFragment vegFragment;
+    private NonVegFragment nonVegFragment;
+    private SoupsFragment soupsFragment;
+    private ChineseFragment chineseFragment;
+    private MainCourseFragment mainCourseFragment;
+    private RiceFragment riceFragment;
+    private RollsFragment rollsFragment;
+    private EggsFragment eggsFragment;
+    private BreadsFragment breadsFragment;
+    private SaladFragment saladFragment;
+    private DessertsFragment dessertsFragment;
+    private DrinksFragment drinksFragment;
 
 
     @Override
@@ -40,6 +55,19 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected);
+        vegFragment = new VegFragment();
+        nonVegFragment = new NonVegFragment();
+        soupsFragment = new SoupsFragment();
+        chineseFragment = new ChineseFragment();
+        mainCourseFragment = new MainCourseFragment();
+        riceFragment = new RiceFragment();
+        rollsFragment = new RollsFragment();
+        eggsFragment = new EggsFragment();
+        breadsFragment = new BreadsFragment();
+        saladFragment = new SaladFragment();
+        dessertsFragment = new DessertsFragment();
+        drinksFragment = new DrinksFragment();
+
         manager = getFragmentManager();
         actionBar = getActionBar();
         BasketActivity.arrListBasketItem.clear();
@@ -73,40 +101,40 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
         //Toast.makeText(getApplicationContext(), "TAB " + tab.getPosition() + " TExt " + tab.getText(), Toast.LENGTH_SHORT).show();
         switch (tab.getPosition()) {
             case 0: // Veg Food
-                ft.replace(android.R.id.content, new VegFragment());
+                ft.replace(android.R.id.content, vegFragment);
                 break;
             case 1://NonVeg Food
-                ft.replace(android.R.id.content, new NonVegFragment());
+                ft.replace(android.R.id.content, nonVegFragment);
                 break;
             case 2://Soups
-                ft.replace(android.R.id.content, new SoupsFragment());
+                ft.replace(android.R.id.content, soupsFragment);
                 break;
             case 3://Chiense
-                ft.replace(android.R.id.content, new ChineseFragment());
+                ft.replace(android.R.id.content, chineseFragment);
                 break;
             case 4://Main Course
-                ft.replace(android.R.id.content, new MainCourseFragment());
+                ft.replace(android.R.id.content, mainCourseFragment);
                 break;
             case 5://Rice& noddles
-                ft.replace(android.R.id.content, new RiceFragment());
+                ft.replace(android.R.id.content, riceFragment);
                 break;
             case 6://Rolls
-                ft.replace(android.R.id.content, new RollsFragment());
+                ft.replace(android.R.id.content, rollsFragment);
                 break;
             case 7://Eggs
-                ft.replace(android.R.id.content, new EggsFragment());
+                ft.replace(android.R.id.content, eggsFragment);
                 break;
             case 8://Breads
-                ft.replace(android.R.id.content, new BreadsFragment());
+                ft.replace(android.R.id.content, breadsFragment);
                 break;
             case 9://Salad
-                ft.replace(android.R.id.content, new SaladFragment());
+                ft.replace(android.R.id.content, saladFragment);
                 break;
             case 10://Desserts
-                ft.replace(android.R.id.content, new DessertsFragment());
+                ft.replace(android.R.id.content, dessertsFragment);
                 break;
             case 11://Drinks
-                ft.replace(android.R.id.content, new DrinksFragment());
+                ft.replace(android.R.id.content, drinksFragment);
                 break;
 
 
