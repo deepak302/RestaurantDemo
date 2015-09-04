@@ -1,26 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#ffffff"
     tools:context=".LoginFragment">
 
-    <ImageButton
-        android:id="@+id/apps_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:background="@mipmap/restaurant_logo" />
 
-    <ImageButton
-        android:id="@+id/login_btn_close"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:background="@mipmap/cross_btn" />
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/apps_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_weight=".10"
+                android:src="@mipmap/restaurant_logo" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relhead"
@@ -28,41 +35,24 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <ImageView
-            android:id="@+id/login_img_username"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="30dp"
-            android:background="@mipmap/username" />
-
-
         <EditText
             android:id="@+id/login_ed_username"
-            android:layout_width="250dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/login_img_username"
-            android:layout_toRightOf="@+id/login_img_username"
+            android:drawableLeft="@mipmap/username"
             android:ems="10"
             android:focusable="true"
             android:hint="username"
             android:inputType="textEmailAddress"
             android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/login_img_password"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/login_ed_username"
-            android:layout_marginTop="20dp"
-            android:background="@mipmap/password" />
-
         <EditText
             android:id="@+id/login_ed_password"
-            android:layout_width="250dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/login_img_password"
-            android:layout_toRightOf="@+id/login_img_password"
+            android:layout_below="@+id/login_ed_username"
+            android:drawableLeft="@mipmap/password"
+            android:drawableStart="@mipmap/password"
             android:hint="password"
             android:inputType="textPassword"
             android:textSize="20sp" />
@@ -71,8 +61,10 @@
             android:id="@+id/login_tv_forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/login_ed_password"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/login_ed_password"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/textview_selector"
             android:layout_marginTop="15dp"
             android:clickable="true"
             android:text="@string/prompt_tv_forget_pass"
@@ -90,16 +82,18 @@
 
             <Button
                 android:id="@+id/login_btn_login"
-                android:layout_width="130dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_selector"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="Log in"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/login_btn_signup"
-                android:layout_width="130dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/button_selector"
@@ -111,28 +105,31 @@
 
     </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/login_btn_facebook"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/relhead"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/login_fb" />
 
-            <ImageButton
-                android:id="@+id/login_btn_facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@mipmap/login_fb" />
+        <ImageView
+            android:id="@+id/login_btn_google"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/login_google"
+            android:text="Google+" />
 
-            <ImageButton
-                android:id="@+id/login_btn_google"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@mipmap/login_google"
-                android:text="Google+" />
-
-        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

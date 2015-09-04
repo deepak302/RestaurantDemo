@@ -67,9 +67,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     private final String TAG = "LoginActivity";
     private Button btnLogin;
     private Button btnSignup;
-    private ImageButton btnFacebook;
-    private ImageButton btnGoogle;
-    private ImageButton imgBtnClose;
+    private ImageView btnFacebook;
+    private ImageView btnGoogle;
     private EditText edUserName;
     private EditText edPassword;
     private TextView tvForgetPass;
@@ -127,8 +126,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         btnLogin.setOnClickListener(this);
         btnSignup = (Button) findViewById(R.id.login_btn_signup);
         btnSignup.setOnClickListener(this);
-        imgBtnClose = (ImageButton) findViewById(R.id.login_btn_close);
-        imgBtnClose.setOnClickListener(this);
 
         edUserName = (EditText) findViewById(R.id.login_ed_username);
         edPassword = (EditText) findViewById(R.id.login_ed_password);
@@ -136,10 +133,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         tvForgetPass = (TextView) findViewById(R.id.login_tv_forgetpassword);
         tvForgetPass.setOnClickListener(this);
 
-        btnGoogle = (ImageButton) findViewById(R.id.login_btn_google);
+        btnGoogle = (ImageView) findViewById(R.id.login_btn_google);
         btnGoogle.setOnClickListener(this);
 
-        btnFacebook = (ImageButton) findViewById(R.id.login_btn_facebook);
+        btnFacebook = (ImageView) findViewById(R.id.login_btn_facebook);
         btnFacebook.setOnClickListener(this);
 
         jsonParser = new JsonParser();
@@ -224,10 +221,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                 transaction.replace(android.R.id.content, new SignupFragment());
                 transaction.addToBackStack(null);
                 transaction.commit();
-                break;
-            case R.id.login_btn_close:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
                 break;
             case R.id.login_btn_facebook:
                 facebookLogin();

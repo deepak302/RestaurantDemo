@@ -136,8 +136,6 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
             case 11://Drinks
                 ft.replace(android.R.id.content, drinksFragment);
                 break;
-
-
         }
     }
 
