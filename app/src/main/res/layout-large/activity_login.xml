@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".LoginFragment">
+
+    <RelativeLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relhead"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/apps_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".10"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/restaurant_logo" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/login_ed_username"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/username"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="username"
+            android:inputType="textEmailAddress"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/login_ed_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_ed_username"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@mipmap/password"
+            android:drawableStart="@mipmap/password"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/login_tv_forgetpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/login_ed_password"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/textview_selector"
+            android:clickable="true"
+            android:text="@string/prompt_tv_forget_pass"
+            android:textColor="#ff4eccff"
+            android:textSize="17sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_tv_forgetpassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/login_btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_selector"
+                android:text="Log in"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/login_btn_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/button_selector"
+                android:text="Sign up"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relhead">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/login_btn_facebook"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/login_fb" />
+
+            <ImageView
+                android:id="@+id/login_btn_google"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/login_google" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
