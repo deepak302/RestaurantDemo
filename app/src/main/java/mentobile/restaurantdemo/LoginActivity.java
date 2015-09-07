@@ -118,9 +118,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         AppEventsLogger.activateApp(this);
         // End facebook initialize
 
-        Log.d(TAG,"::::Content View 1");
         setContentView(R.layout.activity_login);
-        Log.d(TAG, "::::Content View 2");
         loginActivity = this;
         cProgressDialog = new CProgressDialog(LoginActivity.this);
         btnLogin = (Button) findViewById(R.id.login_btn_login);
