@@ -5,11 +5,12 @@
 
     <TextView
         android:id="@+id/item_tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:text="Item Name"
+        android:layout_marginTop="10dp"
+        android:maxLength="25"
+        android:text="Item Namhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhe"
         android:textColor="#ff996a2b"
         android:textIsSelectable="false"
         android:textSize="17sp"
@@ -19,10 +20,9 @@
         android:id="@+id/item_imgbtn_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"
-        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
         android:background="@mipmap/minus" />
 
@@ -30,8 +30,10 @@
         android:id="@+id/item_tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/item_imgbtn_minus"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/item_tv_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="$160.00"
         android:textSize="17sp" />
 
@@ -39,18 +41,21 @@
         android:id="@+id/item_tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/item_tv_price"
-        android:text="1 x "
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/item_imgbtn_minus"
+        android:maxLength="2"
         android:textSize="17sp" />
 
     <ImageButton
         android:id="@+id/item_imgbtn_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/item_tv_quantity"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="80dp"
         android:background="@mipmap/plus" />
 </RelativeLayout>

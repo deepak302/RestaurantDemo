@@ -40,7 +40,9 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "::::Content View 1");
         setContentView(R.layout.activity_basket);
+        Log.d(TAG, "::::Content View 2");
         manager = getFragmentManager();
         tvEditItem = (TextView) findViewById(R.id.basket_tv_edit_item);
         tvEditItem.setOnClickListener(this);
@@ -51,7 +53,6 @@ public class BasketActivity extends Activity implements View.OnClickListener {
         tvTotalPrice = (TextView) findViewById(R.id.basket_tv_your_total_price);
         tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
         listView = (ListView) findViewById(R.id.basket_lv_item);
-//        listView.setEnabled(false);
         basketAdapter = new BasketAdapter(getApplicationContext(), R.layout.item_basket, arrListBasketItem);
         listView.setAdapter(basketAdapter);
     }
@@ -60,7 +61,7 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         if (ItemDetail.isEditItem) {
-            tvEditItem.setText("Edit Item");
+            tvEditItem.setText("Edit");
             ItemDetail.setIsEditItem(false);
         }
     }
@@ -76,10 +77,10 @@ public class BasketActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.basket_tv_edit_item:
                 if (!ItemDetail.isEditItem) {
-                    tvEditItem.setText("Save Item");
+                    tvEditItem.setText("Save");
                     ItemDetail.setIsEditItem(true);
                 } else {
-                    tvEditItem.setText("Edit Item");
+                    tvEditItem.setText("Edit");
                     ItemDetail.setIsEditItem(false);
                 }
                 basketAdapter.notifyDataSetChanged();

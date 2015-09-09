@@ -69,6 +69,12 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE);
     }
 
+    public void deleteRowFromTable(String emailID) {
+        SQLiteDatabase db = getReadableDatabase();
+        String delRowQuery = "DELETE FROM " + TABLE_DELIVERY_ADDRESS + " WHERE email=" + "'" + emailID + "'";
+        db.execSQL(delRowQuery);
+    }
+
     public void insertData(String tableName, ContentValues values) {
         SQLiteDatabase db = getWritableDatabase();
         db.insert(tableName, null, values);

@@ -71,6 +71,7 @@ public class AddressAdapter extends ArrayAdapter<AddressItem> {
         holder.imgBtnDeleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddressActivity.dbHandler.deleteRowFromTable(addressItem.getEmail());
                 arrayList.remove(position);
                 notifyDataSetChanged();
                 Toast.makeText(context, R.string.prompt_toast_addrow_delete, Toast.LENGTH_SHORT).show();

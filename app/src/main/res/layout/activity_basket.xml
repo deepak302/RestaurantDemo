@@ -15,12 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@drawable/textview_selector"
         android:layout_below="@+id/basket_img_header"
         android:layout_marginRight="20dp"
         android:clickable="true"
-        android:text="Edit Items"
-        android:textColor="#ff1bebff"
+        android:text="Edit"
+        android:textColor="@drawable/textview_selector"
         android:textSize="20sp" />
 
     <ListView
@@ -37,11 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/basket_tv_total"
         android:layout_alignParentRight="true"
-        android:background="@drawable/textview_selector"
         android:layout_marginRight="20dp"
         android:clickable="true"
-        android:text="Add Items"
-        android:textColor="#ff1bebff"
+        android:text="Add"
+        android:textColor="@drawable/textview_selector"
         android:textSize="20sp" />
 
     <TextView
@@ -73,8 +71,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="3dp"
         android:background="@drawable/button_selector"
-        android:text="Countinue"
-        android:textColor="#ffffff"
+        android:text="Continue"
+        android:textColor="@color/white"
         android:textSize="25sp" />
 
 </RelativeLayout>

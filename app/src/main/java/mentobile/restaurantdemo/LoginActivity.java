@@ -110,7 +110,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // facebook sdk initialize
         this.savedInstanceState = savedInstanceState;
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -436,7 +435,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         Google Login Connection Method
         ------------ End  ---------------
      */
-
 
     // Facebook integration
 

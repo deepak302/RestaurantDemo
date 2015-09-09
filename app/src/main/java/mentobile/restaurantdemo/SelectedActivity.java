@@ -2,6 +2,7 @@ package mentobile.restaurantdemo;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -49,6 +50,10 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        if (BasketActivity.arrListBasketItem.size() > 0) {
+            BasketActivity.arrListBasketItem.clear();
+            ItemDetail.setTotalPrice(0);
+        }
     }
 
     @Override
@@ -70,7 +75,6 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
 
         manager = getFragmentManager();
         actionBar = getActionBar();
-        BasketActivity.arrListBasketItem.clear();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
         for (int i = 0; i < gridItems.length; i++) {

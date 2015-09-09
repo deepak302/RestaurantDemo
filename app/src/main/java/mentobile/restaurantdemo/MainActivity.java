@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     private FragmentManager manager = null;
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -86,6 +85,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 //                return "";
 //            }
 //        }.execute();
+
     }
 
     public static void showHashKey(Context context) {

@@ -32,7 +32,7 @@ public class NewAddressFragment extends Fragment implements View.OnClickListener
     private Button btnCancel;
 
 
-    public NewAddressFragment() {
+    public  NewAddressFragment() {
         // Required empty public constructor
     }
 
@@ -98,8 +98,6 @@ public class NewAddressFragment extends Fragment implements View.OnClickListener
             edState.setError(getString(R.string.error_state));
             edState.requestFocus();
         } else {
-//            AddressItem addressItem = new AddressItem(email, fullname, phonenumber, pincode, address, city, state, "" + landmark);
-            Toast.makeText(getActivity(), "Wallet Activity", Toast.LENGTH_SHORT).show();
             ContentValues values = new ContentValues();
             values.put("EMAIL", email);
             values.put("FULLNAME", fullname);

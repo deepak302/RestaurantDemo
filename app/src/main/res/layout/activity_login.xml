@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".LoginFragment">
+    tools:context=".LoginActivity">
 
 
     <LinearLayout
@@ -22,8 +22,8 @@
                 android:id="@+id/apps_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
                 android:layout_weight=".10"
+                android:adjustViewBounds="true"
                 android:src="@mipmap/restaurant_logo" />
         </LinearLayout>
 
@@ -64,11 +64,10 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/login_ed_password"
             android:layout_marginRight="20dp"
-            android:background="@drawable/textview_selector"
             android:layout_marginTop="15dp"
             android:clickable="true"
             android:text="@string/prompt_tv_forget_pass"
-            android:textColor="#ff4eccff"
+            android:textColor="@drawable/textview_selector"
             android:textSize="17sp" />
 
 
@@ -82,7 +81,7 @@
 
             <Button
                 android:id="@+id/login_btn_login"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_selector"
                 android:paddingLeft="20dp"
@@ -93,7 +92,7 @@
 
             <Button
                 android:id="@+id/login_btn_signup"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/button_selector"
@@ -105,31 +104,33 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relhead">
 
-        <ImageView
-            android:id="@+id/login_btn_facebook"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/login_fb" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/login_btn_google"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/login_google"
-            android:text="Google+" />
+            <ImageView
+                android:id="@+id/login_btn_facebook"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/login_fb" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/login_btn_google"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/login_google" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

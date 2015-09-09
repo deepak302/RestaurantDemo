@@ -26,12 +26,13 @@ import mentobile.utils.DBHandler;
 public class AddressActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     String TAG = "AddressActivity";
+
     private Button btnAddNewAddress;
     private Button btnProceedToPayment;
 
     private ListView listView;
     private AddressAdapter addressAdapter;
-    private ArrayList<AddressItem> arrayList = new ArrayList<>();
+    ArrayList<AddressItem> arrayList = new ArrayList<>();
     static DBHandler dbHandler;
     private FragmentManager manager;
     private String strAddress;
@@ -47,6 +48,7 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         super.onStart();
         if (!dbHandler.isTableEmplty(DBHandler.TABLE_DELIVERY_ADDRESS)) {
             Cursor cursor = dbHandler.getAllDeliveryAddress();
+            Log.d(TAG,"::::Counter "+cursor.getCount());
             arrayList.clear();
             AddressItem addressItem = null;
             while (cursor.moveToNext()) {
@@ -54,8 +56,6 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
                         cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
                 arrayList.add(addressItem);
             }
-            addressItem.setIsAddessSelected(true);
-            strAddress = addressItem.getFullAddress();
         }
     }
 
@@ -107,7 +107,6 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("AddressActivity ", "::::::List Item " + position);
         for (int i = 0; i < arrayList.size(); i++) {
             AddressItem addressItem = arrayList.get(i);
             addressItem.setIsAddessSelected(false);
