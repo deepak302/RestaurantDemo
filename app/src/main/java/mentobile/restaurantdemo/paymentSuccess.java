@@ -1,4 +1,4 @@
-package mentobile.utils;
+package mentobile.restaurantdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.payUMoney.sdk.Constants;
+
+import mentobile.restaurantdemo.R;
 
 /**
  * Created by piyush on 12/11/14.
@@ -27,7 +29,4 @@ public class paymentSuccess extends Activity{
             textView.setText("Payment failed");
 
     }
-
-
-
 }

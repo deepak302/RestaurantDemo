@@ -20,6 +20,12 @@ public class Application {
     public final static String SP_LOGIN_LOGOUT = "login_logout";
 
 
+    public final static String MERCHANT_KEY = "MHWOrn";
+    public final static String MERCHANT_SALT = "F0g0Bd5S";
+    public final static String MERCHANT_ID = "5190740";
+    public final static String SUCCESS_URL = "https://www.payumoney.com/mobileapp/payumoney/success.php";
+    public final static String FAILED_URL = "https://www.payumoney.com/mobileapp/payumoney/failure.php";
+
 
     // validating email id
     public static boolean isValidEmail(String email) {

@@ -1,20 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".LoginFragment">
+    tools:context=".LoginActivity1">
 
-    <RelativeLayout
-        android:id="@+id/ll"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/relhead"
+        android:layout_height="wrap_content"
         android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="1">
 
@@ -27,11 +27,11 @@
                 android:src="@mipmap/restaurant_logo" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relhead"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
@@ -51,7 +51,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_ed_username"
-            android:layout_marginTop="30dp"
             android:drawableLeft="@mipmap/password"
             android:drawableStart="@mipmap/password"
             android:hint="password"
@@ -66,10 +65,9 @@
             android:layout_below="@+id/login_ed_password"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/textview_selector"
             android:clickable="true"
             android:text="@string/prompt_tv_forget_pass"
-            android:textColor="#ff4eccff"
+            android:textColor="@drawable/textview_selector"
             android:textSize="17sp" />
 
 
@@ -83,16 +81,18 @@
 
             <Button
                 android:id="@+id/login_btn_login"
-                android:layout_width="200dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_selector"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="Log in"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/login_btn_signup"
-                android:layout_width="200dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/button_selector"
@@ -103,6 +103,7 @@
 
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -117,14 +118,14 @@
 
             <ImageView
                 android:id="@+id/login_btn_facebook"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@mipmap/login_fb" />
 
             <ImageView
                 android:id="@+id/login_btn_google"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:adjustViewBounds="true"

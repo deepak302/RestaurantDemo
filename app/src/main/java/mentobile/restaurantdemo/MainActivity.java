@@ -2,7 +2,6 @@ package mentobile.restaurantdemo;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -11,7 +10,6 @@ import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -29,16 +27,11 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.apache.http.NameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import mentobile.utils.DBHandler;
-import mentobile.utils.JsonParser;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -284,20 +277,20 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         tvNVEmail.setText(getString(R.string.prompt_nv_email));
                         tvNVName.setText(getString(R.string.prompt_nv_name));
                         Profile.emptyProfile();
-                        switch (LoginActivity.LOGIN_TYPE) {
+                        switch (LoginActivity1.LOGIN_TYPE) {
                             case 1://Simple Login
 
                                 break;
                             case 2://Google
-                                LoginActivity.loginActivity.googlePlusLogout();
+                                LoginActivity1.loginActivity.googlePlusLogout();
                                 break;
                             case 3://Facebook
-                                LoginActivity.loginActivity.facebokLogout();
+                                LoginActivity1.loginActivity.facebokLogout();
                                 break;
                         }
 
                     } else {
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
                         startActivity(intent);
                     }
                     break;

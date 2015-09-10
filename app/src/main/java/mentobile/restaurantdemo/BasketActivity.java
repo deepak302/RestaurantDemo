@@ -40,9 +40,7 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "::::Content View 1");
         setContentView(R.layout.activity_basket);
-        Log.d(TAG, "::::Content View 2");
         manager = getFragmentManager();
         tvEditItem = (TextView) findViewById(R.id.basket_tv_edit_item);
         tvEditItem.setOnClickListener(this);
@@ -89,6 +87,8 @@ public class BasketActivity extends Activity implements View.OnClickListener {
                 onBackPressed();
                 break;
             case R.id.basket_btn_countinue:
+                tvEditItem.setText("Edit");
+                ItemDetail.setIsEditItem(false);
                 Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

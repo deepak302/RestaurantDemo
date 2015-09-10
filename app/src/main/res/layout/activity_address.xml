@@ -15,15 +15,15 @@
         android:layout_marginTop="10dp"
         android:clickable="true" />
 
-    <Button
+    <TextView
         android:id="@+id/address_btn_new_aadress"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/address_lv_address"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:background="@drawable/abc_textfield_search_material"
         android:text="Add New Address"
-        android:textColor="#ff4eccff"
+        android:textColor="@drawable/textview_selector"
         android:textSize="20sp" />
 
     <Button

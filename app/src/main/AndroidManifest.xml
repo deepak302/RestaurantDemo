@@ -32,7 +32,7 @@
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginActivity1"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait" />
         <activity
@@ -92,6 +92,11 @@
             android:name=".AddressActivity"
             android:label="@string/title_activity_address"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".paymentSuccess"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

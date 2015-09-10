@@ -1,11 +1,13 @@
 package mentobile.restaurantdemo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 import mentobile.utils.DBHandler;
 
 
-public class NewAddressFragment extends Fragment implements View.OnClickListener {
+public class NewAddressFragment extends Fragment {
 
     private EditText edEmail;
     private EditText edFullName;
@@ -29,11 +31,26 @@ public class NewAddressFragment extends Fragment implements View.OnClickListener
     private EditText edLandmark;
 
     private Button btnSave;
-    private Button btnCancel;
+    private FragmentCommunicator communicator;
 
+    public interface FragmentCommunicator {
+        void fragmentDetached(boolean isAttached);
+    }
 
-    public  NewAddressFragment() {
-        // Required empty public constructor
+    public NewAddressFragment(FragmentCommunicator communicator) {
+        this.communicator = communicator;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        communicator.fragmentDetached(true);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        communicator.fragmentDetached(false);
     }
 
     @Override
@@ -56,9 +73,12 @@ public class NewAddressFragment extends Fragment implements View.OnClickListener
         edLandmark = (EditText) view.findViewById(R.id.address_ed_landmark);
 
         btnSave = (Button) view.findViewById(R.id.address_btn_save);
-        btnSave.setOnClickListener(this);
-        btnCancel = (Button) view.findViewById(R.id.address_btn_cancel);
-        btnCancel.setOnClickListener(this);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newAddress();
+            }
+        });
         return view;
     }
 
@@ -108,23 +128,7 @@ public class NewAddressFragment extends Fragment implements View.OnClickListener
             values.put("STATE", state);
             values.put("LANDMARK", landmark);
             AddressActivity.dbHandler.insertData(DBHandler.TABLE_DELIVERY_ADDRESS, values);
-            Intent intent = new Intent(getActivity(), WalletActivity.class);
-            startActivity(intent);
             getActivity().getFragmentManager().popBackStack();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.address_btn_save:
-                newAddress();
-                break;
-
-            case R.id.address_btn_cancel:
-                Application.removeFragment(this,getActivity());
-                break;
-
         }
     }
 }

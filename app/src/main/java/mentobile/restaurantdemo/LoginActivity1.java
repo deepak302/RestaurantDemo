@@ -13,16 +13,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,14 +31,11 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
@@ -56,13 +50,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import mentobile.utils.JsonParser;
 
 
-public class LoginActivity extends Activity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity1 extends Activity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private final String TAG = "LoginActivity";
     private Button btnLogin;
@@ -75,10 +67,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     private ArrayList<NameValuePair> listValue;
     JsonParser jsonParser;
     private CProgressDialog cProgressDialog;
-    public static LoginActivity loginActivity;
+    public static LoginActivity1 loginActivity;
     public static int LOGIN_TYPE = 0;
 
-    public LoginActivity() {
+    public LoginActivity1() {
         // Required empty public constructor
     }
 
@@ -117,9 +109,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
         AppEventsLogger.activateApp(this);
         // End facebook initialize
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login1);
         loginActivity = this;
-        cProgressDialog = new CProgressDialog(LoginActivity.this);
+        cProgressDialog = new CProgressDialog(LoginActivity1.this);
         btnLogin = (Button) findViewById(R.id.login_btn_login);
         btnLogin.setOnClickListener(this);
         btnSignup = (Button) findViewById(R.id.login_btn_signup);
@@ -200,9 +192,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
 
                                 LOGIN_TYPE = 1;
                                 Profile.getProfile().setEmailID(edUserName.getText().toString().trim());
-                                Application.setDataInSharedPreference(LoginActivity.this, Application.SP_LOGIN_LOGOUT, "email",
+                                Application.setDataInSharedPreference(LoginActivity1.this, Application.SP_LOGIN_LOGOUT, "email",
                                         edUserName.getText().toString().trim());
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 finish();
                                 startActivity(intent);
@@ -347,8 +339,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                 Profile.getProfile().setFullName(currentPerson.getDisplayName());
                 Profile.getProfile().setEmailID(email);
 //                Log.d(TAG, "::::Display Name " + currentPerson.getDisplayName() + " Email " + email);
-                Application.setDataInSharedPreference(LoginActivity.this, Application.SP_LOGIN_LOGOUT, "email", email);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Application.setDataInSharedPreference(LoginActivity1.this, Application.SP_LOGIN_LOGOUT, "email", email);
+                Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 cProgressDialog.hide();
                 startActivity(intent);
@@ -487,7 +479,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
     }
 
     public void facebookLogin() {
-        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("basic_info", "email"));
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity1.this, Arrays.asList("basic_info", "email"));
 //        btnFacebook.setReadPermissions(Arrays.asList("basic_info", "email"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -504,8 +496,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
                                     String name = (String) jsonObject.get("name");
                                     Profile.getProfile().setFullName(name);
                                     Profile.getProfile().setEmailID(email);
-                                    Application.setDataInSharedPreference(LoginActivity.this, Application.SP_LOGIN_LOGOUT, "email", email);
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Application.setDataInSharedPreference(LoginActivity1.this, Application.SP_LOGIN_LOGOUT, "email", email);
+                                    Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     cProgressDialog.hide();
                                     startActivity(intent);
@@ -540,7 +532,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Goo
             }
 
             private void showAlert() {
-                new AlertDialog.Builder(LoginActivity.this)
+                new AlertDialog.Builder(LoginActivity1.this)
                         .setTitle(R.string.cancelled)
                         .setMessage(R.string.permission_not_granted)
                         .setPositiveButton(R.string.ok, null)

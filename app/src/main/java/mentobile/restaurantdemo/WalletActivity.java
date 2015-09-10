@@ -15,8 +15,6 @@ import java.util.HashMap;
 import com.payUMoney.sdk.Constants;
 import com.payUMoney.sdk.Session;
 
-import mentobile.utils.paymentSuccess;
-
 public class WalletActivity extends Activity {
 
     EditText amt, txnid, phone, pinfo, fname, email, surl, furl, mid;
@@ -54,14 +52,14 @@ public class WalletActivity extends Activity {
 
     private void makePayment1(View view) {
         String amount = "10";//amt.getText().toString().trim();
-        String txnID = "1220002";//txnid.getText().toString().trim();
+        String txnID = "1220006";//txnid.getText().toString().trim();
         String merchantKey = "MHWOrn";
         String merchantSalt = "F0g0Bd5S";
         String merchantID = "5190740";// mid.getText().toString().trim();
-        String phoneNumber = "8826510669";//phone.getText().toString().trim();
-        String produtInfo = "Testing_Product";//pinfo.getText().toString().trim();
-        String name = "Deepak Sharma";//fname.getText().toString().trim();
-        String email1 = "deepak.sharma302@gmail.com";//email.getText().toString().trim();
+        String phoneNumber = "9999147197";//phone.getText().toString().trim();
+        String produtInfo = "Hello_World_Testing";//pinfo.getText().toString().trim();
+        String name = "Rahul";//fname.getText().toString().trim();
+        String email1 = "rahul44ks@gmail.com";//email.getText().toString().trim();
         String sURL = "https://www.payumoney.com/mobileapp/payumoney/success.php";//surl.getText().toString().trim();
         String fURL = "https://www.payumoney.com/mobileapp/payumoney/failure.php";//furl.getText().toString().trim();
 

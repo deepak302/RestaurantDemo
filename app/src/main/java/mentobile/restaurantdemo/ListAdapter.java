@@ -69,8 +69,10 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
         holder.tvItemName.setText(itemDetail.getName());
         if (itemDetail.getQuantity() > 0) {
             holder.tvItemQuantity.setText("" + itemDetail.getQuantity());
+            holder.imgViewMinus.setVisibility(View.VISIBLE);
         } else {
             holder.tvItemQuantity.setText("");
+            holder.imgViewMinus.setVisibility(View.INVISIBLE);
         }
         holder.tvItemPrice.setText("$" + itemDetail.getPrice());
         holder.imgViewPlus.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +97,8 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
         holder.imgViewMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
-                view.startAnimation(animation);
+//                Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
+//                view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() - 1);
                 ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() - itemDetail.getPrice());
                 if (BasketActivity.arrListBasketItem.contains(itemDetail)) {

@@ -63,11 +63,11 @@
     <string name="prompt_login">Log In</string>
     <string name="prompt_logout">Log Out</string>
     <string-array name="prompt_nv_drawer">
-        <item name="prompt_my_shg">My SHG</item>
         <item name="prompt_myaccount">My Account</item>
-        <item name="prompt_change_password">Change Password</item>
-        <item name="prompt_about">About</item>
-        <item name="prompt_help">Help</item>
+        <item name="prompt_myaccount">My Order</item>
+        <item name="prompt_myaccount">Address</item>
+        <item name="prompt_myaccount">Offers</item>
+        <item name="prompt_myaccount">Rate us</item>
         <item name="prompt_logout">Log In</item>
     </string-array>
     <string name="prompt_nv_name">Welcome Guest</string>
