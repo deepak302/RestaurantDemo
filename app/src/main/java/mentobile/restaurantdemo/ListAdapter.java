@@ -1,7 +1,6 @@
 package mentobile.restaurantdemo;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,15 +80,13 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
-                // Log.d("ListAdapter ", ":::::Price " + ItemDetail.getTotalPrice() + "getPrice   " + itemDetail.getPriceOverQuantity());
-                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() + itemDetail.getPrice());
+                ItemDetail.setTotalBasketItem(ItemDetail.getTotalBasketItem() + 1);
+                ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() + itemDetail.getPrice());
                 if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
                     int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
                     BasketActivity.arrListBasketItem.set(index, itemDetail);
-//                    Log.d("List Adapter ", "::::::Set" + BasketActivity.arrListBasketItem.contains(itemDetail));
                 } else {
                     BasketActivity.arrListBasketItem.add(BasketActivity.arrListBasketItem.size(), itemDetail);
-//                    Log.d("List Adapter ", "::::::Add " + BasketActivity.arrListBasketItem.contains(itemDetail));
                 }
                 notifyDataSetChanged();
             }
@@ -97,21 +94,22 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
         holder.imgViewMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
-//                view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() - 1);
-                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() - itemDetail.getPrice());
+                ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() - itemDetail.getPrice());
+                ItemDetail.setTotalBasketItem(ItemDetail.getTotalBasketItem() - 1);
                 if (BasketActivity.arrListBasketItem.contains(itemDetail)) {
                     int index = BasketActivity.arrListBasketItem.indexOf(itemDetail);
                     BasketActivity.arrListBasketItem.set(index, itemDetail);
                     if (itemDetail.getQuantity() < 1) {
                         BasketActivity.arrListBasketItem.remove(index);
                     }
-//                    Log.d("List Adapter ", "::::::Remove" + BasketActivity.arrListBasketItem.contains(itemDetail));
                 }
                 notifyDataSetChanged();
             }
         });
+
+        SelectedActivity.tvBasketItem.setText("" + ItemDetail.getTotalBasketItem());
+        SelectedActivity.tvTotalAmount.setText("$" + ItemDetail.getTotalAmount());
 
         return gridView;
     }

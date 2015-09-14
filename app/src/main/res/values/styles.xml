@@ -10,4 +10,16 @@
         <item name="android:windowExitAnimation">@anim/exit</item>
     </style>
 
+    <style name="HLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:height">1dp</item>
+        <item name="android:background">@color/chocolate</item>
+    </style>
+
+    <style name="VLine">
+        <item name="android:layout_width">1dip</item>
+        <item name="android:height">500dp</item>
+        <item name="android:background">@color/list_background_pressed</item>
+    </style>
+
 </resources>

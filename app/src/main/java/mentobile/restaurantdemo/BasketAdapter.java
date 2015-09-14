@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -57,37 +55,32 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             gridView = inflater.inflate(resourceID, viewGroup, false);
             holder = new RecordHolder();
-            holder.tvItemCounter = (TextView) gridView.findViewById(R.id.basket_tv_item_counter);
-            holder.tvItemName = (TextView) gridView.findViewById(R.id.basket_tv_name);
-            holder.tvItemQuantity = (TextView) gridView.findViewById(R.id.basket_tv_quantity);
-            holder.tvItemPrice = (TextView) gridView.findViewById(R.id.basket_tv_price);
-            holder.imgViewPlus = (ImageButton) gridView.findViewById(R.id.basket_imgbtn_plus);
-            holder.imgViewMinus = (ImageButton) gridView.findViewById(R.id.basket_imgbtn_minus);
+            holder.tvItemName = (TextView) gridView.findViewById(R.id.item_tv_name);
+            holder.tvItemQuantity = (TextView) gridView.findViewById(R.id.item_tv_quantity);
+            holder.tvItemPrice = (TextView) gridView.findViewById(R.id.item_tv_price);
+            holder.imgViewPlus = (ImageButton) gridView.findViewById(R.id.item_imgbtn_plus);
+            holder.imgViewMinus = (ImageButton) gridView.findViewById(R.id.item_imgbtn_minus);
             gridView.setTag(holder);
         } else {
             holder = (RecordHolder) gridView.getTag();
         }
         final ItemDetail itemDetail = arrayList.get(position);
-        holder.tvItemCounter.setText((position + 1) + ". ");
-        Log.d("    ", ":::::::::Basket " + position);
         holder.tvItemName.setText(itemDetail.getName());
-        holder.tvItemQuantity.setText(itemDetail.getQuantity() + " x ");
+        holder.tvItemQuantity.setText("" + itemDetail.getQuantity());
         holder.tvItemPrice.setText("$" + itemDetail.getPriceOverQuantity());
-        if (ItemDetail.isEditItem) {
-            holder.imgViewPlus.setVisibility(View.VISIBLE);
-            holder.imgViewMinus.setVisibility(View.VISIBLE);
-        } else {
-            holder.imgViewPlus.setVisibility(View.GONE);
-            holder.imgViewMinus.setVisibility(View.GONE);
-        }
         holder.imgViewPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
-                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() + itemDetail.getPrice());
-                BasketActivity.tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
+
+                ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() + itemDetail.getPrice());
+                BasketActivity.tvTotalAmount.setText("$ " + ItemDetail.getTotalAmount());
+
+                ItemDetail.setTotalBasketItem(ItemDetail.getTotalBasketItem() + 1);
+                BasketActivity.tvBasketItems.setText("" + ItemDetail.getTotalBasketItem());
+
                 notifyDataSetChanged();
             }
         });
@@ -97,11 +90,15 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
                 Animation animation = AnimationUtils.loadAnimation(context, R.anim.aplha);
                 view.startAnimation(animation);
                 itemDetail.setQuantity(itemDetail.getQuantity() - 1);
-                ItemDetail.setTotalPrice(ItemDetail.getTotalPrice() - itemDetail.getPrice());
+
+                ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() - itemDetail.getPrice());
+                BasketActivity.tvTotalAmount.setText("$ " + ItemDetail.getTotalAmount());
                 if (itemDetail.getQuantity() < 1 && arrayList.contains(itemDetail)) {
                     arrayList.remove(itemDetail);
                 }
-                BasketActivity.tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
+                ItemDetail.setTotalBasketItem(ItemDetail.getTotalBasketItem() - 1);
+                BasketActivity.tvBasketItems.setText("" + ItemDetail.getTotalBasketItem());
+
                 notifyDataSetChanged();
             }
         });
@@ -111,7 +108,6 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
     static class RecordHolder {
         ImageButton imgViewPlus;
         ImageButton imgViewMinus;
-        TextView tvItemCounter;
         TextView tvItemName;
         TextView tvItemQuantity;
         TextView tvItemPrice;

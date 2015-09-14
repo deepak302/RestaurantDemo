@@ -64,11 +64,14 @@
     <string name="prompt_logout">Log Out</string>
     <string-array name="prompt_nv_drawer">
         <item name="prompt_myaccount">My Account</item>
-        <item name="prompt_myaccount">My Order</item>
-        <item name="prompt_myaccount">Address</item>
-        <item name="prompt_myaccount">Offers</item>
-        <item name="prompt_myaccount">Rate us</item>
+        <item name="prompt_myorder">My Order</item>
+        <item name="prompt_address">Address</item>
+        <item name="prompt_offers">Offers</item>
+        <item name="prompt_">Rate us</item>
         <item name="prompt_logout">Log In</item>
+        <item name="prompt_contact_us">Contact us</item>
+        <item name="prompt_logout">Privacy Policy</item>
+        <item name="prompt_logout">Terms and Condition</item>
     </string-array>
     <string name="prompt_nv_name">Welcome Guest</string>
     <string name="prompt_nv_email">Login to get exclusive offer</string>
@@ -106,6 +109,11 @@
 
     <string name="prompt_toast_addrow_delete">Address Deleted...</string>
     <string name="prompt_toast_address_allow">Only Four Address Allowed to save in Your account.</string>
+
+
+    <string name="prompt_tv_edit_order">Edit Order</string>
+    <string name="prompt_tv_save_order">Save Order</string>
+    <string name="prompt_tv_add_new_address">Add New Address</string>
 
 
 

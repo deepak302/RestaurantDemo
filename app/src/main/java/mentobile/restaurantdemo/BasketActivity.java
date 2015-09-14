@@ -2,21 +2,17 @@ package mentobile.restaurantdemo;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 
 public class BasketActivity extends Activity implements View.OnClickListener {
@@ -24,75 +20,85 @@ public class BasketActivity extends Activity implements View.OnClickListener {
     String TAG = "BasketActivity";
     private ListView listView;
     private BasketAdapter basketAdapter;
-    private TextView tvEditItem;
-    private TextView tvAddItem;
-    private Button btnCountinue;
-    public static TextView tvTotalPrice;
+    private TextView tvChooseAddress;
+    private ImageButton imgbtn_NextPage_Lower;
+
+    static TextView tvBasketItems;
+    static TextView tvTotalAmount;
+
+    private RelativeLayout basket_rl_button ;
+
     private FragmentManager manager;
     public static ArrayList<ItemDetail> arrListBasketItem = new ArrayList<>();
+
+    private int inAnimation, outAnimation;
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(inAnimation, outAnimation);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         manager = getFragmentManager();
-        tvEditItem = (TextView) findViewById(R.id.basket_tv_edit_item);
-        tvEditItem.setOnClickListener(this);
-        tvAddItem = (TextView) findViewById(R.id.basket_tv_add_item);
-        tvAddItem.setOnClickListener(this);
-        btnCountinue = (Button) findViewById(R.id.basket_btn_countinue);
-        btnCountinue.setOnClickListener(this);
-        tvTotalPrice = (TextView) findViewById(R.id.basket_tv_your_total_price);
-        tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
-        listView = (ListView) findViewById(R.id.basket_lv_item);
-        basketAdapter = new BasketAdapter(getApplicationContext(), R.layout.item_basket, arrListBasketItem);
-        listView.setAdapter(basketAdapter);
-    }
+        tvChooseAddress = (TextView) findViewById(R.id.basket_tv_choose_address);
+        tvChooseAddress.setOnClickListener(this);
+        imgbtn_NextPage_Lower = (ImageButton) findViewById(R.id.basket_imgbtn_next_lower);
+        imgbtn_NextPage_Lower.setOnClickListener(this);
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (ItemDetail.isEditItem) {
-            tvEditItem.setText("Edit");
-            ItemDetail.setIsEditItem(false);
-        }
+        tvBasketItems = (TextView) findViewById(R.id.basket_tv_basket);
+        tvBasketItems.setOnClickListener(this);
+        tvTotalAmount = (TextView) findViewById(R.id.basket_tv_totalamount);
+        tvTotalAmount.setOnClickListener(this);
+        basket_rl_button = (RelativeLayout) findViewById(R.id.basket_rl_button);
+        basket_rl_button.setOnClickListener(this);
+
+        listView = (ListView) findViewById(R.id.basket_lv_item);
+        basketAdapter = new BasketAdapter(getApplicationContext(), R.layout.item_list, arrListBasketItem);
+        listView.setAdapter(basketAdapter);
+
+        inAnimation = R.anim.slide_in_left;
+        outAnimation = R.anim.slide_out_right;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        tvTotalPrice.setText("$ " + ItemDetail.getTotalPrice());
+        tvTotalAmount.setText("$ " + ItemDetail.getTotalAmount());
+        tvBasketItems.setText("" + ItemDetail.getTotalBasketItem());
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
         switch (v.getId()) {
-            case R.id.basket_tv_edit_item:
-                if (!ItemDetail.isEditItem) {
-                    tvEditItem.setText("Save");
-                    ItemDetail.setIsEditItem(true);
-                } else {
-                    tvEditItem.setText("Edit");
-                    ItemDetail.setIsEditItem(false);
-                }
-                basketAdapter.notifyDataSetChanged();
-                break;
-            case R.id.basket_tv_add_item:
-                onBackPressed();
-                break;
-            case R.id.basket_btn_countinue:
-                tvEditItem.setText("Edit");
+            case R.id.basket_imgbtn_next_lower:
                 ItemDetail.setIsEditItem(false);
-                Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+            case R.id.basket_tv_choose_address:
+                ItemDetail.setIsEditItem(false);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_up_out);
+                break;
+
+            case R.id.basket_rl_button:
+                inAnimation = R.anim.push_up_in;
+                outAnimation = R.anim.push_down_out;
+                onBackPressed();
+                break;
+
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
     }
 }

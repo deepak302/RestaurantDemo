@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,10 +30,15 @@ import mentobile.categary.SaladFragment;
 import mentobile.categary.SoupsFragment;
 import mentobile.categary.VegFragment;
 
-public class SelectedActivity extends Activity implements ActionBar.TabListener {
+public class SelectedActivity extends Activity implements ActionBar.TabListener, View.OnClickListener {
 
+
+    static TextView tvBasketItem;
+    static TextView tvTotalAmount;
+    private TextView tvToalAmountText;
+    private ImageButton btnNextPage;
+    private ImageView imgBasket;
     private ActionBar actionBar;
-    private Button btnAddToBasket;
     private FragmentManager manager;
     public ArrayList<ItemDetail> arrayList = new ArrayList<>();
     private VegFragment vegFragment;
@@ -45,21 +54,58 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     private DessertsFragment dessertsFragment;
     private DrinksFragment drinksFragment;
 
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         if (BasketActivity.arrListBasketItem.size() > 0) {
-            BasketActivity.arrListBasketItem.clear();
-            ItemDetail.setTotalPrice(0);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(SelectedActivity.this);
+            builder.setTitle("Discard Cart");
+            builder.setMessage("Do you want to discard your current Cart?");
+            builder.setPositiveButton("Discard Cart", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    BasketActivity.arrListBasketItem.clear();
+                    ItemDetail.setTotalAmount(0);
+                    ItemDetail.setTotalBasketItem(0);
+                    SelectedActivity.super.onBackPressed();
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            super.onBackPressed();
         }
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_selected);
+
+        tvBasketItem = (TextView) findViewById(R.id.selected_tv_basket);
+        tvTotalAmount = (TextView) findViewById(R.id.selected_tv_totalamount);
+        tvTotalAmount.setOnClickListener(this);
+        tvToalAmountText = (TextView) findViewById(R.id.selected_tv_total);
+        tvToalAmountText.setOnClickListener(this);
+        imgBasket = (ImageView) findViewById(R.id.selected_img_basket);
+        imgBasket.setOnClickListener(this);
+
+        btnNextPage = (ImageButton) findViewById(R.id.selected_imgbtn_next);
+        btnNextPage.setOnClickListener(this);
+
         vegFragment = new VegFragment();
         nonVegFragment = new NonVegFragment();
         soupsFragment = new SoupsFragment();
@@ -75,6 +121,8 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
 
         manager = getFragmentManager();
         actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
         for (int i = 0; i < gridItems.length; i++) {
@@ -85,19 +133,7 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
         }
         int frag = getIntent().getExtras().getInt("frag");
         actionBar.setSelectedNavigationItem(frag);
-        btnAddToBasket = (Button) findViewById(R.id.selected_btn_basket);
-        btnAddToBasket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (BasketActivity.arrListBasketItem.size() < 1) {
-                    Toast.makeText(SelectedActivity.this, R.string.msg_bucket_item, Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(SelectedActivity.this, BasketActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            }
-        });
+
     }
 
     @Override
@@ -151,5 +187,33 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (BasketActivity.arrListBasketItem.size() < 1) {
+            Toast.makeText(SelectedActivity.this, R.string.msg_bucket_item, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(SelectedActivity.this, BasketActivity.class);
+        switch (v.getId()) {
+            case R.id.selected_img_basket:
+            case R.id.selected_tv_total:
+            case R.id.selected_tv_totalamount:
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_up_out);
+                break;
+            case R.id.selected_imgbtn_next:
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+        }
     }
 }

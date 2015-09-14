@@ -5,16 +5,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.zip.Inflater;
 
 import mentobile.utils.DBHandler;
 
@@ -34,8 +32,10 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
     String TAG = "AddressActivity";
 
     private TextView btnAddNewAddress;
-    private Button btnProceedToPayment;
-
+    private ImageButton imgBtnNextPage;
+    private ImageButton imgBtnNextPageUpper;
+    private TextView tvNextPage;
+    private RelativeLayout address_rl_upper;
     private ListView listView;
     private AddressAdapter addressAdapter;
     ArrayList<AddressItem> arrayList = new ArrayList<>();
@@ -45,24 +45,34 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
 
     private NewAddressFragment addressFragment;
     AddressItem addressItem = null;
+    private int inAnimation, outAnimation;
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(inAnimation, outAnimation);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         dbHandler = new DBHandler(this, 1);
         manager = getFragmentManager();
+
         btnAddNewAddress = (TextView) findViewById(R.id.address_btn_new_aadress);
         btnAddNewAddress.setOnClickListener(this);
-        btnProceedToPayment = (Button) findViewById(R.id.address_btn_payment);
-        btnProceedToPayment.setOnClickListener(this);
+
+        imgBtnNextPage = (ImageButton) findViewById(R.id.address_imgbtn_next);
+        imgBtnNextPage.setOnClickListener(this);
+
+
+        address_rl_upper = (RelativeLayout) findViewById(R.id.address_rl_upper);
+        address_rl_upper.setOnClickListener(this);
+
+        tvNextPage = (TextView) findViewById(R.id.address_tv_processed_payment);
+        tvNextPage.setOnClickListener(this);
         listView = (ListView) findViewById(R.id.address_lv_address);
         listView.setOnItemClickListener(this);
         addressAdapter = new AddressAdapter(this, R.layout.addrss_row, arrayList);
@@ -80,7 +90,8 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
             }
             addressAdapter.notifyDataSetChanged();
         }
-
+        inAnimation = R.anim.slide_in_left;
+        outAnimation = R.anim.slide_out_right;
     }
 
     @Override
@@ -99,7 +110,8 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
                 }
                 break;
 
-            case R.id.address_btn_payment:
+            case R.id.address_imgbtn_next:
+            case R.id.address_tv_processed_payment:
                 if (arrayList.size() < 1) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(android.R.id.content, addressFragment);
@@ -112,6 +124,12 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
                         Toast.makeText(getApplicationContext(), "Please select your delivery address", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
+
+            case R.id.address_rl_upper:
+                inAnimation = R.anim.push_up_in;
+                outAnimation = R.anim.push_down_out;
+                onBackPressed();
                 break;
         }
     }
@@ -127,10 +145,15 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         addressAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
 
     private void makePayment() {
 
-        String amount = "" + ItemDetail.getTotalPrice();
+        String amount = "" + ItemDetail.getTotalAmount();
         String txnID = "MO" + System.currentTimeMillis();
         String merchantKey = Application.MERCHANT_KEY;
         String merchantSalt = Application.MERCHANT_SALT;

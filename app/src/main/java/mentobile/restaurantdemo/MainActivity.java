@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,14 +19,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +37,7 @@ import java.util.ArrayList;
 
 import mentobile.utils.DBHandler;
 
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener, View.OnTouchListener {
 
     private String TAG = "MainActivity";
     private FragmentManager fragmentManager;
@@ -55,6 +59,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     ArrayList<GridItem> alGridItem = new ArrayList<GridItem>();
     private GridItem gridItem;
     private GridAdapter gridAdapter;
+
+    private ViewFlipper viewFlipper;
+    private ImageView imgSwipeLeft;
+    private ImageView imgSwipeRight;
 
     private FragmentManager manager = null;
 
@@ -88,7 +96,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
         } catch (NoSuchAlgorithmException e) {
@@ -107,7 +114,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
         listView = (ListView) findViewById(R.id.main_lv_nvdrawer);
         LayoutInflater inflater = getLayoutInflater();
-        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.nv_header, null, false);
+        final ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.nv_header, null, false);
         tvNVEmail = (TextView) viewGroup.findViewById(R.id.nvheader_tv_pemail);
         tvNVName = (TextView) viewGroup.findViewById(R.id.nvheader_tv_pname);
         listView.addHeaderView(viewGroup, null, false);
@@ -126,6 +133,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         listView.setOnItemClickListener(this);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -136,14 +144,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             @Override
             public void onDrawerOpened(View drawerView) {
                 // TODO Auto-generated method stub
-                getActionBar().setTitle(R.string.navigation_drawer_open);
+                // getActionBar().setTitle(R.string.navigation_drawer_open);
                 invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 // TODO Auto-generated method stub
-                getActionBar().setTitle(R.string.navigation_drawer_close);
+//                getActionBar().setTitle(R.string.navigation_drawer_close);
                 invalidateOptionsMenu();
             }
         };
@@ -161,6 +169,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         gridView.setAdapter(gridAdapter);
         gridAdapter.notifyDataSetChanged();
 
+        viewFlipper = (ViewFlipper) findViewById(R.id.main_viewflip_slide);
+        viewFlipper.startFlipping();
+
+        imgSwipeLeft = (ImageView) findViewById(R.id.main_img_swipe_left);
+        imgSwipeLeft.setOnTouchListener(this);
+
+        imgSwipeRight = (ImageView) findViewById(R.id.main_img_swipe_right);
+        imgSwipeRight.setOnTouchListener(this);
     }
 
     private void setProfile() {
@@ -185,14 +201,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 Profile.getProfile().setOtherAddress(cursor.getString(11));
                 Profile.getProfile().setDelIns(cursor.getString(12));
             }
-            Log.d(TAG, ":::::Cursor " + cursor.getCount());
         } else {
-            Log.d(TAG, ":::::User Not Login in any Account ");
             Profile.getProfile().setEmailID(getString(R.string.prompt_nv_email));
             Profile.getProfile().setFullName(getString(R.string.prompt_nv_name));
         }
-        Log.d(TAG, ":::::Email " + Profile.getProfile().getEmailID());
-        Log.d(TAG, ":::::Name " + Profile.getProfile().getFullName());
         tvNVEmail.setText(Profile.getProfile().getEmailID());
         tvNVName.setText(Profile.getProfile().getFullName());
     }
@@ -268,7 +280,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 case 5:
                     break;
                 case 6:
-                    Log.d(TAG, "::::::Clear SP " + Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email"));
                     if (Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email") != null) {
                         Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
                         NvItems items = (NvItems) arrayList.get(position - 1);
@@ -296,5 +307,26 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+            switch (v.getId()) {
+                case R.id.main_img_swipe_left:
+                    Log.d(TAG, "::::::Show Next");
+                    viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_right);
+                    viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_left);
+                    viewFlipper.showNext();
+                    break;
+                case R.id.main_img_swipe_right:
+                    Log.d(TAG, "::::::Show Previous");
+                    viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_left);
+                    viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_right);
+                    viewFlipper.showPrevious();
+                    break;
+            }
+        }
+        return true;
     }
 }

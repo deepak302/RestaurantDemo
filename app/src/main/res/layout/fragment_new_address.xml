@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:background="#ffffff"
     tools:context=".NewAddressFragment">
 
@@ -13,14 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/prompt_ed_delivery_address"
-        android:textColor="#ff0000"
+        android:text="@string/prompt_tv_add_new_address"
+        android:textColor="@drawable/textview_selector"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <ScrollView
+        android:id="@+id/address_sv_main"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/address_tv_delivery_address">
 
         <LinearLayout
@@ -106,10 +107,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/address_ed_landmark"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="30dp"
                 android:background="@drawable/button_selector"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:layout_margin="30dp"
                 android:text="Save"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />

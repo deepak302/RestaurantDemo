@@ -1,8 +1,5 @@
 package mentobile.restaurantdemo;
 
-import android.graphics.drawable.Drawable;
-import android.widget.Toast;
-
 /**
  * Created by Administrator on 8/11/2015.
  */
@@ -12,7 +9,8 @@ public class ItemDetail {
     private String name;
     private int quantity;
     private int Price;
-    static int Total;
+    static int TotalAmount;
+    static int TotalBasketItem;
     static boolean isEditItem ;
 
     public static boolean isEditItem() {
@@ -27,12 +25,20 @@ public class ItemDetail {
         return (getQuantity() * getPrice());
     }
 
-    public static int getTotalPrice() {
-        return Total;
+    public static int getTotalAmount() {
+        return TotalAmount;
     }
 
-    public static void setTotalPrice(int mTotal) {
-        Total = mTotal;
+    public static void setTotalAmount(int mTotal) {
+        TotalAmount = mTotal;
+    }
+
+    public static int getTotalBasketItem() {
+        return TotalBasketItem;
+    }
+
+    public static void setTotalBasketItem(int totalBasketItem) {
+        TotalBasketItem = totalBasketItem;
     }
 
     public ItemDetail(String type, String name, int quantity, int price) {

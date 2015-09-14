@@ -2,17 +2,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddressActivity">
+
+    <View
+        style="@style/HLine"
+        android:layout_height="2dp"
+        android:layout_alignTop="@+id/address_rl_upper" />
+
+    <RelativeLayout
+        android:id="@+id/address_rl_upper"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/address_tv_choose_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Choose Address"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_below="@+id/address_rl_upper" />
 
     <ListView
         android:id="@+id/address_lv_address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/address_rl_upper"
         android:clickable="true" />
 
     <TextView
@@ -22,19 +44,46 @@
         android:layout_below="@+id/address_lv_address"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:text="Add New Address"
+        android:text="@string/prompt_tv_add_new_address"
         android:textColor="@drawable/textview_selector"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/address_btn_payment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_selector"
-        android:text="Proceed to Payment"
-        android:textColor="#ffefe9ef"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <View
+        android:id="@+id/view"
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/address_ll_button" />
+
+    <RelativeLayout
+        android:id="@+id/address_ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/address_tv_processed_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Processed To Payment"
+            android:textSize="20sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/address_imgbtn_next" />
+
+        <ImageButton
+            android:id="@+id/address_imgbtn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/ic_action_forward" />
+    </RelativeLayout>
 
 </RelativeLayout>

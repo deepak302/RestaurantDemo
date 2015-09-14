@@ -3,7 +3,6 @@
     android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff000000"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -11,24 +10,94 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <GridView
-        android:id="@+id/main_gv_item"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/main_img_header"
-        android:layout_centerInParent="true"
-        android:horizontalSpacing="1dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp" />
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ViewFlipper
+                android:id="@+id/main_viewflip_slide"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:flipInterval="5000"
+                android:inAnimation="@anim/viewflipper_slide_in_right"
+                android:outAnimation="@anim/viewflipper_slide_out_left">
+
+                <ImageView
+                    android:id="@+id/main_vf_img1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/main_vf_img2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/main_vf_img3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:id="@+id/main_vf_img4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:background="@mipmap/ic_launcher" />
+
+            </ViewFlipper>
+
+            <ImageView
+                android:id="@+id/main_img_swipe_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/swipe_left" />
+
+            <ImageView
+                android:id="@+id/main_img_swipe_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/swipe_right" />
+        </RelativeLayout>
+
+        <View
+            style="@style/HLine"
+            android:layout_height="1dp" />
+
+        <GridView
+            android:id="@+id/main_gv_item"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_viewflip_slide"
+            android:layout_gravity="center"
+            android:background="#ff000000"
+            android:horizontalSpacing="1dp"
+            android:listSelector="@color/transparent"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="1dp" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/main_lv_nvdrawer"
         android:layout_width="260dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:divider="@color/list_background_pressed"
-        android:dividerHeight="1dip"/>
+        android:dividerHeight="1dip" />
 
 </android.support.v4.widget.DrawerLayout>

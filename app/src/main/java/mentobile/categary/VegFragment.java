@@ -22,7 +22,6 @@ public class VegFragment extends Fragment {
     private ListAdapter listAdapter;
     ArrayList<ItemDetail> arrayList = new ArrayList<>();
 
-
     public VegFragment() {
         // Required empty public constructor
     }
@@ -30,7 +29,6 @@ public class VegFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,":::::ON Create Veg Fragment "+savedInstanceState);
     }
 
     @Override

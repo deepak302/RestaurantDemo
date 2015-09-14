@@ -4,75 +4,123 @@
     android:layout_height="match_parent"
     tools:context=".BasketActivity">
 
-    <ImageView
-        android:id="@+id/basket_img_header"
-        android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:background="@mipmap/bg" />
+    <View
+        style="@style/HLine"
+        android:layout_height="3dp"
+        android:layout_alignTop="@+id/basket_rl_button" />
 
-    <TextView
-        android:id="@+id/basket_tv_edit_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/basket_img_header"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:text="Edit"
-        android:textColor="@drawable/textview_selector"
-        android:textSize="20sp" />
+    <RelativeLayout
+        android:id="@+id/basket_rl_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/basket_img_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/basket" />
+
+        <TextView
+            android:id="@+id/basket_tv_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/basket_img_basket"
+            android:layout_toRightOf="@+id/basket_img_basket"
+            android:ems="2"
+            android:text="000"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/basket_tv_basket" />
+
+        <TextView
+            android:id="@+id/basket_tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/basket_tv_basket"
+            android:layout_centerHorizontal="true"
+            android:text="Total Amt.:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/basket_tv_totalamount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/basket_img_basket"
+            android:layout_toEndOf="@+id/basket_tv_total"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/basket_tv_total"
+            android:ems="3"
+            android:text="$10000"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/basket_rl_button"
+        android:background="@color/list_background_pressed" />
 
     <ListView
         android:id="@+id/basket_lv_item"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/basket_tv_add_item"
-        android:layout_below="@+id/basket_tv_edit_item"
-        android:divider="#ff0000" />
+        android:layout_above="@+id/basket_ll_button"
+        android:layout_below="@+id/basket_rl_button"
+        android:divider="@color/list_background_pressed"
+        android:dividerHeight="1dp" />
 
-    <TextView
-        android:id="@+id/basket_tv_add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/basket_tv_total"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:text="Add"
-        android:textColor="@drawable/textview_selector"
-        android:textSize="20sp" />
+    <View
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/basket_ll_button" />
 
-    <TextView
-        android:id="@+id/basket_tv_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/basket_btn_countinue"
-        android:layout_marginLeft="20dp"
-        android:text="Total:"
-        android:textColor="#ffad32ff"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/basket_tv_your_total_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/basket_tv_total"
-        android:layout_marginRight="20dp"
-        android:text="$ 578.00"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/basket_btn_countinue"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/basket_ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="3dp"
-        android:background="@drawable/button_selector"
-        android:text="Continue"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/basket_tv_choose_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Choose Address"
+            android:textSize="20sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/basket_imgbtn_next_lower" />
+
+        <ImageButton
+            android:id="@+id/basket_imgbtn_next_lower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/ic_action_forward" />
+    </RelativeLayout>
 
 </RelativeLayout>

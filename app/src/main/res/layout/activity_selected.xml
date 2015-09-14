@@ -5,16 +5,83 @@
     android:layout_height="match_parent"
     tools:context=".SelectedActivity">
 
-    <Button
-        android:id="@+id/selected_btn_basket"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <View
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/selected_rl_lower" />
+
+    <RelativeLayout
+        android:id="@+id/selected_rl_lower"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/button_selector"
-        android:gravity="center"
-        android:text="Add to Basket"
-        android:textColor="#ffffff"
-        android:textSize="20sp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/selected_img_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/basket" />
+
+        <TextView
+            android:id="@+id/selected_tv_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/selected_img_basket"
+            android:layout_toRightOf="@+id/selected_img_basket"
+            android:ems="2"
+            android:text="000"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/selected_tv_basket" />
+
+        <TextView
+            android:id="@+id/selected_tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/selected_imgbtn_next"
+            android:layout_centerHorizontal="true"
+            android:text="Total Amt."
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/selected_tv_totalamount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selected_tv_total"
+            android:layout_centerHorizontal="true"
+            android:ems="3"
+            android:text="$00000"
+            android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/selected_imgbtn_next" />
+
+        <ImageButton
+            android:id="@+id/selected_imgbtn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/ic_action_forward" />
+    </RelativeLayout>
 
 </RelativeLayout>
