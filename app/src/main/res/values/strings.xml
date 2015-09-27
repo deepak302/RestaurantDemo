@@ -114,6 +114,9 @@
     <string name="prompt_tv_edit_order">Edit Order</string>
     <string name="prompt_tv_save_order">Save Order</string>
     <string name="prompt_tv_add_new_address">Add New Address</string>
+    <string name="title_activity_delivery_type">DeliveryTypeActivity</string>
+    <string name="title_activity_mobile_confirm">MobileConfirmActivity</string>
+    <string name="title_activity_order_complete">OrderCompleteActivity</string>
 
 
 

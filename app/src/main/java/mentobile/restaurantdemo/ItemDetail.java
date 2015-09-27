@@ -11,7 +11,7 @@ public class ItemDetail {
     private int Price;
     static int TotalAmount;
     static int TotalBasketItem;
-    static boolean isEditItem ;
+    static boolean isEditItem;
 
     public static boolean isEditItem() {
         return isEditItem;
@@ -46,6 +46,11 @@ public class ItemDetail {
         this.name = name;
         this.quantity = quantity;
         Price = price;
+    }
+
+    public String getIteminArray(int id) {
+        String[] itemArray = {getName(), "" + getQuantity(), "" + getPrice()};
+        return itemArray[id];
     }
 
     public String getType() {

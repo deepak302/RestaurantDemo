@@ -16,18 +16,17 @@ public class AddressItem {
     private String Landmark;
     private String FullAddress;
 
-//    private static AddressItem addressItem = null;
-//
-//    public static AddressItem getAddressItem() {
-//        if (addressItem == null) {
-//            addressItem = new AddressItem();
-//        }
-//        return addressItem;
-//    }
-//
-//    public AddressItem() {
-//
-//    }
+    private static AddressItem addressItem = null;
+
+    public static AddressItem getAddressItem() {
+        if (addressItem == null) {
+            addressItem = new AddressItem();
+        }
+        return addressItem;
+    }
+    public AddressItem() {
+
+    }
 
     public AddressItem(String email, String fullName, String phone, String pincode, String deliveryAddress, String city, String state, String landmark) {
         Email = email;

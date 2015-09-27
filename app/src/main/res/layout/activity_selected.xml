@@ -52,6 +52,7 @@
             android:layout_alignTop="@+id/selected_imgbtn_next"
             android:layout_centerHorizontal="true"
             android:text="Total Amt."
+            android:textColor="@drawable/textview_selector"
             android:textSize="16sp"
             android:textStyle="bold" />
 

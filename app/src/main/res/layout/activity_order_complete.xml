@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="mentobile.restaurantdemo.OrderCompleteActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/order_tv_back_home">
+
+        <LinearLayout
+            android:id="@+id/order_ll_top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/order_tv_ordertext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Order No:"
+                android:textColor="@color/chocolate"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_tv_ordernumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="O10222012245"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/order_view_hline"
+                style="@style/HLine"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/order_tv_msg"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Your order number has been dispatched to this below address:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/order_tv_txt_del"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Delivery Address:"
+                android:textColor="@color/chocolate"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/order_tv_del_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="158, Part 6 \n Secror 5 Gurgaon \n Haryana Pin Code : 122001"
+                android:textSize="16sp" />
+
+
+            <RelativeLayout
+                android:id="@+id/order_rl_medium"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/order_view_hline1"
+                    style="@style/HLine"
+                    android:layout_height="1dp" />
+
+                <TableLayout
+                    android:id="@+id/order_tl_main"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="#000000"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*">
+
+                </TableLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/view"
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/order_tv_back_home" />
+
+    <TextView
+        android:id="@+id/order_tv_back_home"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Back To New Order"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:textColor="@drawable/textview_selector"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
+
+</RelativeLayout>

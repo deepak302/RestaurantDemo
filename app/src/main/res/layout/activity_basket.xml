@@ -59,12 +59,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/basket_img_basket"
-            android:layout_toEndOf="@+id/basket_tv_total"
             android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/basket_tv_total"
             android:layout_toRightOf="@+id/basket_tv_total"
             android:ems="3"
             android:text="$10000"
             android:textColor="@color/brown"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/basket_tv_addnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="Add Items"
+            android:layout_centerVertical="true"
+            android:textColor="@drawable/textview_selector"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -103,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Choose Address"
+            android:textColor="@drawable/textview_selector"
             android:textSize="20sp" />
 
         <View

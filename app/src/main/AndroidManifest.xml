@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mentobile.restaurantdemo">
+    package="mentobile.restaurantdemo" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -16,20 +16,21 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity1"
             android:label="@string/title_activity_splash"
@@ -91,10 +92,21 @@
             android:name=".AddressActivity"
             android:label="@string/title_activity_address"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".paymentSuccess"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" />
+        <activity
+            android:name=".DeliveryTypeActivity"
+            android:label="@string/title_activity_delivery_type"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MobileConfirmActivity"
+            android:label="@string/title_activity_mobile_confirm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderCompleteActivity"
+            android:label="@string/title_activity_order_complete"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

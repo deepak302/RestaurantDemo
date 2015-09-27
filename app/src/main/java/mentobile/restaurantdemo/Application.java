@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.io.File;
@@ -16,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class Application {
 
-    public final static String URL = "http://mentobile.com/test/";
+    public final static String URL = "http://www.geekytechsupport.com/rest_db/";
     public final static String SP_LOGIN_LOGOUT = "login_logout";
 
 
@@ -66,6 +68,21 @@ public class Application {
 
             }
         }
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        boolean available = false;
+        /** Getting the system's connectivity service */
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        /** Getting active network interface  to get the network's status */
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isAvailable())
+            available = true;
+
+        /** Returning the status of the network */
+        return available;
     }
 
 }

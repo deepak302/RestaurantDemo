@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Processed To Payment"
+            android:textColor="@drawable/textview_selector"
             android:textSize="20sp" />
 
         <View

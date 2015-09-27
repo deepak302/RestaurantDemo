@@ -159,12 +159,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         gridView = (GridView) findViewById(R.id.main_gv_item);
         gridView.setOnItemClickListener(this);
+
         String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
         Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
         for (int i = 0; i < gridItems.length; i++) {
             gridItem = new GridItem(drawable, gridItems[i], i);
             alGridItem.add(gridItem);
         }
+
         gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, alGridItem);
         gridView.setAdapter(gridAdapter);
         gridAdapter.notifyDataSetChanged();

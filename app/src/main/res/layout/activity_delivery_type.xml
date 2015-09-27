@@ -1,0 +1,163 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mentobile.restaurantdemo.DeliveryTypeActivity">
+
+    <RelativeLayout
+        android:id="@+id/delivery_rl_header"
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:background="@color/chocolate">
+
+        <ImageView
+            android:id="@+id/delivery_img_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/restaurant_logo" />
+
+        <TextView
+            android:id="@+id/delivery_tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/delivery_tv_totalamount"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:text="Total:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/delivery_tv_totalamount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/delivery_img_image"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="$10000"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/delivery_rl_medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delivery_rl_header"
+        android:background="@color/input_gray">
+
+        <TextView
+            android:id="@+id/delivery_tv_paytype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="How would like to pay?" />
+
+        <RadioGroup
+            android:id="@+id/delivery_rg_paytype"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/delivery_tv_paytype"
+            android:layout_margin="10dp">
+
+            <RadioButton
+                android:id="@+id/delivery_rb_payonline"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/ic_launcher"
+                android:checked="true"
+                android:text="Pay Online" />
+
+            <RadioButton
+                android:id="@+id/delivery_rb_paytm_wallet"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/ic_launcher"
+                android:text="PayTM Wallet" />
+
+            <RadioButton
+                android:id="@+id/delivery_rb_cash"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/ic_launcher"
+                android:text="Cash On Delivery" />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/delivery_ll_addboucher"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delivery_rl_medium"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/delivery_tv_voucher_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Voucher Code"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:hint="Voucher code (optional)"
+            android:inputType="textCapCharacters"
+            android:maxLength="6"
+            android:textColor="@color/chocolate"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/HLine"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/delivery_rl_bottom" />
+
+    <RelativeLayout
+        android:id="@+id/delivery_rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/delivery_tv_place_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Place Order"
+            android:textColor="@drawable/textview_selector"
+            android:textSize="20sp" />
+
+        <View
+            style="@style/VLine"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/delivery_imgbtn_next_page" />
+
+        <ImageButton
+            android:id="@+id/delivery_imgbtn_next_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/ic_action_forward" />
+    </RelativeLayout>
+
+</RelativeLayout>
