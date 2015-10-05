@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/delivery_rl_header"
         android:layout_width="fill_parent"
-        android:layout_height="160dp"
+        android:layout_height="100dp"
         android:background="@color/chocolate">
 
         <ImageView
@@ -36,7 +36,7 @@
             android:id="@+id/delivery_tv_totalamount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/delivery_img_image"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -72,22 +72,24 @@
                 android:id="@+id/delivery_rb_payonline"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/ic_launcher"
                 android:checked="true"
+                android:drawableRight="@mipmap/payonline"
                 android:text="Pay Online" />
 
             <RadioButton
                 android:id="@+id/delivery_rb_paytm_wallet"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/ic_launcher"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableRight="@mipmap/paytm"
                 android:text="PayTM Wallet" />
 
             <RadioButton
                 android:id="@+id/delivery_rb_cash"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/ic_launcher"
+                android:drawableRight="@mipmap/cash_delivery"
                 android:text="Cash On Delivery" />
         </RadioGroup>
 
@@ -98,6 +100,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/delivery_rl_medium"
+        android:layout_centerInParent="true"
         android:layout_margin="10dp"
         android:orientation="vertical">
 
@@ -106,14 +109,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Voucher Code"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:hint="Voucher code (optional)"
             android:inputType="textCapCharacters"
             android:maxLength="6"

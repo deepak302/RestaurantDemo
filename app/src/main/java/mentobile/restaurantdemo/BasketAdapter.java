@@ -67,7 +67,7 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
         final ItemDetail itemDetail = arrayList.get(position);
         holder.tvItemName.setText(itemDetail.getName());
         holder.tvItemQuantity.setText("" + itemDetail.getQuantity());
-        holder.tvItemPrice.setText("$" + itemDetail.getPriceOverQuantity());
+        holder.tvItemPrice.setText("" + itemDetail.getPriceOverQuantity());
         holder.imgViewPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
                 itemDetail.setQuantity(itemDetail.getQuantity() + 1);
 
                 ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() + itemDetail.getPrice());
-                BasketActivity.tvTotalAmount.setText("$ " + ItemDetail.getTotalAmount());
+                BasketActivity.tvTotalAmount.setText("Rs. " + ItemDetail.getTotalAmount());
 
                 ItemDetail.setTotalBasketItem(ItemDetail.getTotalBasketItem() + 1);
                 BasketActivity.tvBasketItems.setText("" + ItemDetail.getTotalBasketItem());
@@ -92,7 +92,7 @@ public class BasketAdapter extends ArrayAdapter<ItemDetail> {
                 itemDetail.setQuantity(itemDetail.getQuantity() - 1);
 
                 ItemDetail.setTotalAmount(ItemDetail.getTotalAmount() - itemDetail.getPrice());
-                BasketActivity.tvTotalAmount.setText("$ " + ItemDetail.getTotalAmount());
+                BasketActivity.tvTotalAmount.setText("Rs. " + ItemDetail.getTotalAmount());
                 if (itemDetail.getQuantity() < 1 && arrayList.contains(itemDetail)) {
                     arrayList.remove(itemDetail);
                 }

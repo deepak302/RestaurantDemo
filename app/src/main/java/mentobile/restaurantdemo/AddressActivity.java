@@ -1,5 +1,6 @@
 package mentobile.restaurantdemo;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,8 +8,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,7 +60,7 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
         dbHandler = new DBHandler(this, 1);
         manager = getFragmentManager();
 
@@ -65,7 +69,6 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
 
         imgBtnNextPage = (ImageButton) findViewById(R.id.address_imgbtn_next);
         imgBtnNextPage.setOnClickListener(this);
-
 
         address_rl_upper = (RelativeLayout) findViewById(R.id.address_rl_upper);
         address_rl_upper.setOnClickListener(this);
@@ -80,19 +83,48 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         if (!dbHandler.isTableEmplty(DBHandler.TABLE_DELIVERY_ADDRESS)) {
             Cursor cursor = dbHandler.getAllDeliveryAddress();
             arrayList.clear();
-            AddressItem addressItem = null;
 
             while (cursor.moveToNext()) {
                 addressItem = new AddressItem(cursor.getString(0), cursor.getString(1), cursor.getString(2),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
                 arrayList.add(addressItem);
             }
+//            addressItem = arrayList.get(arrayList.size()-1);
+            addressItem.setIsAddessSelected(true);
             addressAdapter.notifyDataSetChanged();
         }
-        addressItem = arrayList.get(arrayList.size() - 1);
-        addressItem.setIsAddessSelected(true);
+
         inAnimation = R.anim.slide_in_left;
         outAnimation = R.anim.slide_out_right;
+        setCustomActionBar();
+
+    }
+
+    private void setCustomActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        RelativeLayout actionBarLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        TextView actionBarTitleview = (TextView) actionBarLayout.findViewById(R.id.action_bar_tvTitle);
+        actionBarTitleview.setText("Your Address");
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT);
+        ImageButton drawerImageView = (ImageButton) actionBarLayout.findViewById(R.id.action_bar_imgbtn);
+        drawerImageView.setBackgroundResource(R.mipmap.ic_action_back);
+        drawerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+                view.startAnimation(animation);
+                onBackPressed();
+            }
+        });
+
+        actionBar.setCustomView(actionBarLayout, params);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -129,6 +161,7 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
     }
 
     private void deliveyType() {
+
         if (arrayList.size() < 1) {
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(android.R.id.content, addressFragment);
@@ -136,10 +169,20 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
             transaction.commit();
         } else {
             if (addressItem != null && addressItem.isAddessSelected()) {
+                AddressItem.getAddressItem().setFullName(addressItem.getFullName());
+                AddressItem.getAddressItem().setCity(addressItem.getCity());
+                AddressItem.getAddressItem().setDeliveryAddress(addressItem.getDeliveryAddress());
+                AddressItem.getAddressItem().setEmail(addressItem.getEmail());
+                AddressItem.getAddressItem().setLandmark(addressItem.getLandmark());
+                AddressItem.getAddressItem().setPhone(addressItem.getPhone());
+                AddressItem.getAddressItem().setState(addressItem.getState());
+                AddressItem.getAddressItem().setPincode(addressItem.getPincode());
+
                 strFullAddress = "" + addressItem.getDeliveryAddress() + "\n" +
                         "" + addressItem.getCity() + "\t" + "" + addressItem.getState() + "\n" +
                         "Pincode  " + addressItem.getPincode() + "\n" +
                         "Landmark " + addressItem.getLandmark();
+
                 Intent intentDeliveryType = new Intent(this, DeliveryTypeActivity.class);
                 startActivity(intentDeliveryType);
                 //makePayment();
@@ -158,23 +201,13 @@ public class AddressActivity extends Activity implements View.OnClickListener, A
         addressItem = arrayList.get(position);
         addressItem.setIsAddessSelected(true);
         addressAdapter.notifyDataSetChanged();
-
-        addressItem.setIsAddessSelected(true);
-        addressItem.setFullName(addressItem.getFullName());
-        addressItem.setCity(addressItem.getCity());
-        addressItem.setDeliveryAddress(addressItem.getDeliveryAddress());
-        addressItem.setEmail(addressItem.getEmail());
-        addressItem.setLandmark(addressItem.getLandmark());
-        addressItem.setPhone(addressItem.getPhone());
-        addressItem.setState(addressItem.getState());
-        addressItem.setPincode(addressItem.getPincode());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        onBackPressed();
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @Override

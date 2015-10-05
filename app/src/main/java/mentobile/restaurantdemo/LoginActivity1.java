@@ -51,7 +51,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import mentobile.utils.JsonParser;
+import mentobile.utils.WebService;
 
 
 public class LoginActivity1 extends Activity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -65,7 +65,7 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
     private EditText edPassword;
     private TextView tvForgetPass;
     private ArrayList<NameValuePair> listValue;
-    JsonParser jsonParser;
+    WebService webService;
     private CProgressDialog cProgressDialog;
     public static LoginActivity1 loginActivity;
     public static int LOGIN_TYPE = 0;
@@ -129,7 +129,7 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
         btnFacebook = (ImageView) findViewById(R.id.login_btn_facebook);
         btnFacebook.setOnClickListener(this);
 
-        jsonParser = new JsonParser();
+        webService = new WebService();
 //        Log.d(TAG,":::::GoogleApiClienr "+mGoogleApiClient.isConnected());
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -172,7 +172,7 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
                         @Override
                         protected String doInBackground(String... params) {
                             Log.d(TAG, "::::::Json 1");
-                            JSONObject json = jsonParser.makeHttpRequest("signup", listValue);
+                            JSONObject json = webService.makeHttpRequest("signup", listValue);
                             Log.d(TAG, "::::::Json ");
                             try {
                                 String success = json.getString("description");
@@ -265,7 +265,7 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
             listValue = new ArrayList<NameValuePair>();
             listValue.add(new BasicNameValuePair("email", params[0]));
             listValue.add(new BasicNameValuePair("type", params[1]));
-            JSONObject json = jsonParser.makeHttpRequest("signup", listValue);
+            JSONObject json = webService.makeHttpRequest("signup", listValue);
             try {
                 String success = json.getString("description");
                 return success;

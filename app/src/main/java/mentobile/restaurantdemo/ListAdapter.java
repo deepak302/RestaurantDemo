@@ -73,7 +73,7 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
             holder.tvItemQuantity.setText("");
             holder.imgViewMinus.setVisibility(View.INVISIBLE);
         }
-        holder.tvItemPrice.setText("$" + itemDetail.getPrice());
+        holder.tvItemPrice.setText("" + itemDetail.getPrice());
         holder.imgViewPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +88,9 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                 } else {
                     BasketActivity.arrListBasketItem.add(BasketActivity.arrListBasketItem.size(), itemDetail);
                 }
+                Log.d("SelectActivity ", "::::::Total " + ItemDetail.getTotalAmount());
+                SelectedActivity.tvBasketItem.setText("" + ItemDetail.getTotalBasketItem());
+                SelectedActivity.tvTotalAmount.setText("Rs. " + ItemDetail.getTotalAmount());
                 notifyDataSetChanged();
             }
         });
@@ -104,13 +107,12 @@ public class ListAdapter extends ArrayAdapter<ItemDetail> {
                         BasketActivity.arrListBasketItem.remove(index);
                     }
                 }
+                Log.d("SelectActivity ", "::::::TotalO " + ItemDetail.getTotalAmount());
+                SelectedActivity.tvBasketItem.setText("" + ItemDetail.getTotalBasketItem());
+                SelectedActivity.tvTotalAmount.setText("Rs. " + ItemDetail.getTotalAmount());
                 notifyDataSetChanged();
             }
         });
-
-        SelectedActivity.tvBasketItem.setText("" + ItemDetail.getTotalBasketItem());
-        SelectedActivity.tvTotalAmount.setText("$" + ItemDetail.getTotalAmount());
-
         return gridView;
     }
 

@@ -23,6 +23,7 @@
                 android:id="@+id/main_viewflip_slide"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal"
                 android:flipInterval="5000"
                 android:inAnimation="@anim/viewflipper_slide_in_right"
@@ -31,26 +32,27 @@
                 <ImageView
                     android:id="@+id/main_vf_img1"
                     android:layout_width="fill_parent"
-                    android:layout_height="150dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:layout_height="120dp"
+                    android:scaleType="fitXY"
+                    android:background="@mipmap/slider1" />
 
                 <ImageView
                     android:id="@+id/main_vf_img2"
                     android:layout_width="fill_parent"
-                    android:layout_height="150dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:layout_height="120dp"
+                    android:background="@mipmap/slider2" />
 
                 <ImageView
                     android:id="@+id/main_vf_img3"
                     android:layout_width="fill_parent"
-                    android:layout_height="150dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:layout_height="120dp"
+                    android:background="@mipmap/slider3" />
 
                 <ImageView
                     android:id="@+id/main_vf_img4"
                     android:layout_width="fill_parent"
-                    android:layout_height="150dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:layout_height="120dp"
+                    android:background="@mipmap/slider4" />
 
             </ViewFlipper>
 
@@ -80,15 +82,14 @@
         <GridView
             android:id="@+id/main_gv_item"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_below="@+id/main_viewflip_slide"
             android:layout_gravity="center"
-            android:background="#ff000000"
-            android:horizontalSpacing="1dp"
+            android:horizontalSpacing="5dp"
             android:listSelector="@color/transparent"
             android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="1dp" />
+            android:verticalSpacing="5dp" />
     </LinearLayout>
 
     <ListView

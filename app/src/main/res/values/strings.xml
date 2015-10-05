@@ -67,11 +67,7 @@
         <item name="prompt_myorder">My Order</item>
         <item name="prompt_address">Address</item>
         <item name="prompt_offers">Offers</item>
-        <item name="prompt_">Rate us</item>
         <item name="prompt_logout">Log In</item>
-        <item name="prompt_contact_us">Contact us</item>
-        <item name="prompt_logout">Privacy Policy</item>
-        <item name="prompt_logout">Terms and Condition</item>
     </string-array>
     <string name="prompt_nv_name">Welcome Guest</string>
     <string name="prompt_nv_email">Login to get exclusive offer</string>
@@ -117,6 +113,7 @@
     <string name="title_activity_delivery_type">DeliveryTypeActivity</string>
     <string name="title_activity_mobile_confirm">MobileConfirmActivity</string>
     <string name="title_activity_order_complete">OrderCompleteActivity</string>
+    <string name="title_activity_offer">OfferActivity</string>
 
 
 

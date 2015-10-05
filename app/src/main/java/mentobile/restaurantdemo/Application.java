@@ -5,11 +5,18 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,12 +28,12 @@ public class Application {
     public final static String URL = "http://www.geekytechsupport.com/rest_db/";
     public final static String SP_LOGIN_LOGOUT = "login_logout";
 
-
     public final static String MERCHANT_KEY = "MHWOrn";
     public final static String MERCHANT_SALT = "F0g0Bd5S";
     public final static String MERCHANT_ID = "5190740";
     public final static String SUCCESS_URL = "https://www.payumoney.com/mobileapp/payumoney/success.php";
     public final static String FAILED_URL = "https://www.payumoney.com/mobileapp/payumoney/failure.php";
+    private static URL url = null;
 
 
     // validating email id
@@ -85,4 +92,49 @@ public class Application {
         return available;
     }
 
+    private  static InputStream OpenHttpConnection(String urlString)
+            throws IOException
+    {
+        InputStream in = null;
+        int response = -1;
+
+        url = new URL(urlString);
+        URLConnection conn = url.openConnection();
+
+        if (!(conn instanceof HttpURLConnection))
+            throw new IOException("Not an HTTP connection");
+
+        try{
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            httpConn.setAllowUserInteraction(false);
+            httpConn.setInstanceFollowRedirects(true);
+            httpConn.setRequestMethod("GET");
+            httpConn.connect();
+
+            response = httpConn.getResponseCode();
+            if (response == HttpURLConnection.HTTP_OK) {
+                in = httpConn.getInputStream();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new IOException("Error connecting");
+        }
+        return in;
+    }
+
+    public static Bitmap DownloadImage(String URL)
+    {
+        Bitmap bitmap = null;
+        InputStream in = null;
+        try {
+            in = OpenHttpConnection(URL);
+            bitmap = BitmapFactory.decodeStream(in);
+            in.close();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return bitmap;
+    }
 }

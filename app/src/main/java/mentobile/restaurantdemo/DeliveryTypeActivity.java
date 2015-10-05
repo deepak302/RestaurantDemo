@@ -1,14 +1,18 @@
 package mentobile.restaurantdemo;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,16 +46,18 @@ public class DeliveryTypeActivity extends Activity implements RadioGroup.OnCheck
     @Override
     protected void onStart() {
         super.onStart();
-        tvAmount.setText("" + ItemDetail.getTotalAmount());
+        tvAmount.setText("Rs. " + ItemDetail.getTotalAmount());
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_type);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
         tvAmount = (TextView) findViewById(R.id.delivery_tv_totalamount);
-        tvAmount.setText("" + ItemDetail.getTotalAmount());
+        tvAmount.setText("Rs. " + ItemDetail.getTotalAmount());
 
         tvPlaceOrder = (TextView) findViewById(R.id.delivery_tv_place_order);
         tvPlaceOrder.setOnClickListener(this);
@@ -68,13 +74,41 @@ public class DeliveryTypeActivity extends Activity implements RadioGroup.OnCheck
         inAnimation = R.anim.slide_in_left;
         outAnimation = R.anim.slide_out_right;
 
+        setCustomActionBar();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return super.onOptionsItemSelected(item);
+    private void setCustomActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        RelativeLayout actionBarLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        TextView actionBarTitleview = (TextView) actionBarLayout.findViewById(R.id.action_bar_tvTitle);
+        actionBarTitleview.setText("Delivery Type");
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT);
+        ImageButton drawerImageView = (ImageButton) actionBarLayout.findViewById(R.id.action_bar_imgbtn);
+        drawerImageView.setBackgroundResource(R.mipmap.ic_action_back);
+        drawerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+                view.startAnimation(animation);
+                onBackPressed();
+            }
+        });
+
+        actionBar.setCustomView(actionBarLayout, params);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        onBackPressed();
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void makePayment() {
 
@@ -117,7 +151,6 @@ public class DeliveryTypeActivity extends Activity implements RadioGroup.OnCheck
         params.put("udf3", "");
         params.put("udf4", "");
         params.put("udf5", "");
-
         Session.startPaymentProcess(this, params);
     }
 

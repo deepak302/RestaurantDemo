@@ -1,5 +1,6 @@
 package mentobile.restaurantdemo;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -7,18 +8,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +24,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import mentobile.utils.DBHandler;
+import mentobile.utils.WebService;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener, View.OnTouchListener {
 
@@ -56,7 +64,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private TextView tvNVName;
 
     private GridView gridView;
-    ArrayList<GridItem> alGridItem = new ArrayList<GridItem>();
+    public static ArrayList<GridItem> arrListGridItem = new ArrayList<GridItem>();
     private GridItem gridItem;
     private GridAdapter gridAdapter;
 
@@ -65,16 +73,20 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private ImageView imgSwipeRight;
 
     private FragmentManager manager = null;
+    private CProgressDialog cProgressDialog;
+    private WebService webService;
 
     @Override
     protected void onStart() {
         super.onStart();
-        setProfile();
-        Log.d(TAG, ":::::::::ONstart");
+//        setProfile();
+        BasketActivity.arrListBasketItem.clear();
+        ItemDetail.setTotalAmount(0);
+        ItemDetail.setTotalBasketItem(0);
 //        new AsyncTask<String, String, String>() {
 //            @Override
 //            protected String doInBackground(String... params) {
-//                JsonParser parser = new JsonParser();
+//                WebService parser = new WebService();
 //                ArrayList<NameValuePair> listValue = new ArrayList<NameValuePair>();
 //                JSONObject jsonObject = parser.makeHttpRequest("122001", listValue);
 //                try {
@@ -83,10 +95,15 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
-//                return "";
+//                return ""; ,
 //            }
 //        }.execute();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        arrayList.clear();
     }
 
     public static void showHashKey(Context context) {
@@ -104,11 +121,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         manager = getFragmentManager();
 //        showHashKey(getApplicationContext());
         setContentView(R.layout.activity_main);
+        cProgressDialog = new CProgressDialog(this);
+        webService = new WebService();
         dbHandler = new DBHandler(getApplicationContext(), 1);
         mTitle = mDrawerTitle = getTitle();
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
@@ -119,10 +139,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         tvNVName = (TextView) viewGroup.findViewById(R.id.nvheader_tv_pname);
         listView.addHeaderView(viewGroup, null, false);
 
-        // drawerLayout.setDrawerShadow(R.mipmap.drawer_shadow, GravityCompat.START);
         arrayList = new ArrayList<NvItems>();
-        String nv_array[] = getResources().getStringArray(
-                R.array.prompt_nv_drawer);
+        String nv_array[] = getResources().getStringArray(R.array.prompt_nv_drawer);
         for (int i = 0; i < nv_array.length; i++) {
             NvItems items = new NvItems(R.mipmap.ic_launcher, nv_array[i], null, false);
             arrayList.add(items);
@@ -131,45 +149,21 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 R.layout.nv_drawer_row, arrayList);
         listView.setAdapter(sMenuAdapter);
         listView.setOnItemClickListener(this);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        actionBarDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.mipmap.ic_drawer,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close) {
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // TODO Auto-generated method stub
-                // getActionBar().setTitle(R.string.navigation_drawer_open);
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // TODO Auto-generated method stub
-//                getActionBar().setTitle(R.string.navigation_drawer_close);
-                invalidateOptionsMenu();
-            }
-        };
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
         gridView = (GridView) findViewById(R.id.main_gv_item);
         gridView.setOnItemClickListener(this);
 
-        String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
-        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
-        for (int i = 0; i < gridItems.length; i++) {
-            gridItem = new GridItem(drawable, gridItems[i], i);
-            alGridItem.add(gridItem);
-        }
+//        String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
+//        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+//        for (int i = 0; i < gridItems.length; i++) {
+//            gridItem = new GridItem(null, gridItems[i], i);
+//            arrListGridItem.add(gridItem);
+//        }
 
-        gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, alGridItem);
-        gridView.setAdapter(gridAdapter);
-        gridAdapter.notifyDataSetChanged();
+//        gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, arrListGridItem);
+//        gridView.setAdapter(gridAdapter);
+//        gridAdapter.notifyDataSetChanged();
+        serCustomActionBar();
 
         viewFlipper = (ViewFlipper) findViewById(R.id.main_viewflip_slide);
         viewFlipper.startFlipping();
@@ -179,6 +173,45 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         imgSwipeRight = (ImageView) findViewById(R.id.main_img_swipe_right);
         imgSwipeRight.setOnTouchListener(this);
+        if (arrListGridItem.size() < 1) {
+            MyAsynchTask myAsynchTask = new MyAsynchTask();
+            myAsynchTask.execute();
+        } else {
+            gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, arrListGridItem);
+            gridView.setAdapter(gridAdapter);
+            gridAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    private void serCustomActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        RelativeLayout actionBarLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        TextView actionBarTitleview = (TextView) actionBarLayout.findViewById(R.id.action_bar_tvTitle);
+        actionBarTitleview.setText("Restaurant Demo");
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT);
+        ImageButton drawerImageView = (ImageButton) actionBarLayout.findViewById(R.id.action_bar_imgbtn);
+        drawerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+                view.startAnimation(animation);
+                if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                } else {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                }
+            }
+        });
+
+        actionBar.setCustomView(actionBarLayout, params);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     private void setProfile() {
@@ -212,50 +245,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO Auto-generated method stub
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // TODO Auto-generated method stub
-        boolean drawerOpen = drawerLayout.isDrawerOpen(listView);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        // TODO Auto-generated method stub
-        mTitle = title;
-        getActionBar().setTitle(mTitle);
-        super.setTitle(title);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
-        super.onConfigurationChanged(newConfig);
-        actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == R.id.main_gv_item) {
             Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
@@ -280,8 +269,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 case 4:
                     break;
                 case 5:
-                    break;
-                case 6:
                     if (Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email") != null) {
                         Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
                         NvItems items = (NvItems) arrayList.get(position - 1);
@@ -316,13 +303,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         if (MotionEvent.ACTION_DOWN == event.getAction()) {
             switch (v.getId()) {
                 case R.id.main_img_swipe_left:
-                    Log.d(TAG, "::::::Show Next");
+
                     viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_right);
                     viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_left);
                     viewFlipper.showNext();
                     break;
                 case R.id.main_img_swipe_right:
-                    Log.d(TAG, "::::::Show Previous");
+
                     viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_left);
                     viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_right);
                     viewFlipper.showPrevious();
@@ -330,5 +317,51 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             }
         }
         return true;
+    }
+
+    private class MyAsynchTask extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Drawable drawable = getResources().getDrawable(R.drawable.my_progress_indeterminate);
+            cProgressDialog.setIndeterminateDrawable(drawable);
+            cProgressDialog.setMessage("Please wait...");
+            cProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            List<NameValuePair> list = new ArrayList<>();
+            JSONObject json = webService.makeHttpRequest("DownloadData", list);
+            try {
+                //String success = json.getString("description");
+                JSONArray jsonArray = json.getJSONArray("description");
+                int length = jsonArray.length();
+                for (int i = 1; i < length; i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    int id = jsonObject.getInt("cat_id");
+                    String name = jsonObject.getString("cat_name");
+                    String image_url = Application.URL + "/app_img/" + jsonObject.getString("cat_image");
+                    GridItem gridItem = new GridItem(null, name, id, image_url);
+                    arrListGridItem.add(gridItem);
+                }
+                return "";
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return "Invalid";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equalsIgnoreCase("invalid")) {
+                Toast.makeText(getApplicationContext(), " " + s, Toast.LENGTH_SHORT).show();
+            }
+            gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, arrListGridItem);
+            gridView.setAdapter(gridAdapter);
+            gridAdapter.notifyDataSetChanged();
+            cProgressDialog.hide();
+        }
     }
 }

@@ -48,10 +48,6 @@ public class ItemDetail {
         Price = price;
     }
 
-    public String getIteminArray(int id) {
-        String[] itemArray = {getName(), "" + getQuantity(), "" + getPrice()};
-        return itemArray[id];
-    }
 
     public String getType() {
         return type;

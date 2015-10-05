@@ -11,7 +11,7 @@ import mentobile.utils.DBHandler;
 
 public class SplashActivity extends Activity {
 
-    private String TAG = "SPlashActivity";
+    private String TAG = "SplashActivity";
     private boolean isThread = true;
 
     @Override
@@ -38,7 +38,7 @@ public class SplashActivity extends Activity {
                                 e.printStackTrace();
                             }
                             isThread = false;
-                           // Application.clearSharedPreferenceFile(SplashActivity.this, Application.SP_LOGIN_LOGOUT);
+                            // Application.clearSharedPreferenceFile(SplashActivity.this, Application.SP_LOGIN_LOGOUT);
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                             startActivity(intent);
                         }

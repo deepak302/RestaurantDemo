@@ -113,6 +113,6 @@ public class AddressItem {
 
     public String getFullAddress() {
         return (getFullName() + " , " + getDeliveryAddress() + " , " + getCity() + " , " + getState() +
-                " , " + getPincode());
+                " , " + getPincode() + " , "+getLandmark());
     }
 }

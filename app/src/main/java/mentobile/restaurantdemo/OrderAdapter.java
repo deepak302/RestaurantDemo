@@ -64,7 +64,7 @@ public class OrderAdapter extends ArrayAdapter<ItemDetail> {
         final ItemDetail itemDetail = arrayList.get(position);
         holder.tvItemName.setText(itemDetail.getName());
         holder.tvItemQuantity.setText("" + itemDetail.getQuantity());
-        holder.tvItemPrice.setText("$" + itemDetail.getPriceOverQuantity());
+        holder.tvItemPrice.setText("Rs." + itemDetail.getPriceOverQuantity());
         return gridView;
     }
 

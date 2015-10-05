@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
-   <TextView
+    <TextView
         android:id="@+id/order_tv_item_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="1 x "
         android:layout_marginLeft="10dp"
+        android:text="1 x "
         android:textColor="#ff996a2b"
         android:textSize="16sp" />
 
@@ -29,8 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/order_tv_price"
         android:layout_toRightOf="@+id/order_tv_quantity"
-        android:text="order Name"
+        android:layout_toStartOf="@+id/order_tv_price"
+        android:text="order Namdfd  sdfdf  sdfdsf s sdfsdf sd sd sdfsdf e"
         android:textColor="#ff996a2b"
         android:textIsSelectable="false"
         android:textSize="17sp"

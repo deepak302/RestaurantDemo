@@ -8,10 +8,15 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +46,7 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
     private ActionBar actionBar;
     private FragmentManager manager;
     public ArrayList<ItemDetail> arrayList = new ArrayList<>();
-    private VegFragment vegFragment;
+    //    private VegFragment vegFragment;
     private NonVegFragment nonVegFragment;
     private SoupsFragment soupsFragment;
     private ChineseFragment chineseFragment;
@@ -53,6 +58,9 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
     private SaladFragment saladFragment;
     private DessertsFragment dessertsFragment;
     private DrinksFragment drinksFragment;
+    public static int pos;
+
+    VegFragment vegFragment[] = new VegFragment[MainActivity.arrListGridItem.size()];
 
     @Override
     public void onBackPressed() {
@@ -64,9 +72,6 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
             builder.setPositiveButton("Discard Cart", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    BasketActivity.arrListBasketItem.clear();
-                    ItemDetail.setTotalAmount(0);
-                    ItemDetail.setTotalBasketItem(0);
                     SelectedActivity.super.onBackPressed();
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 }
@@ -106,7 +111,7 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
         btnNextPage = (ImageButton) findViewById(R.id.selected_imgbtn_next);
         btnNextPage.setOnClickListener(this);
 
-        vegFragment = new VegFragment();
+//        vegFragment = new VegFragment();
         nonVegFragment = new NonVegFragment();
         soupsFragment = new SoupsFragment();
         chineseFragment = new ChineseFragment();
@@ -119,64 +124,99 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
         dessertsFragment = new DessertsFragment();
         drinksFragment = new DrinksFragment();
 
+        for (int i = 0; i < MainActivity.arrListGridItem.size(); i++) {
+            vegFragment[i] = new VegFragment();
+        }
+
         manager = getFragmentManager();
         actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        setCustomActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
-        for (int i = 0; i < gridItems.length; i++) {
+        //  String gridItems[] = getResources().getStringArray(R.array.prompt_grid_Item_Type);
+        for (int i = 0; i < MainActivity.arrListGridItem.size(); i++) {
             ActionBar.Tab tab = actionBar.newTab();
-            tab.setText(gridItems[i]);
+            GridItem gridItem = MainActivity.arrListGridItem.get(i);
+            tab.setText(gridItem.getItemType());
             tab.setTabListener(this);
             actionBar.addTab(tab);
         }
         int frag = getIntent().getExtras().getInt("frag");
         actionBar.setSelectedNavigationItem(frag);
+        Log.d("SelectedActivity ",":::::Selected "+frag);
+    }
 
+    private void setCustomActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        RelativeLayout actionBarLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        TextView actionBarTitleview = (TextView) actionBarLayout.findViewById(R.id.action_bar_tvTitle);
+        actionBarTitleview.setText("Food Items");
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT);
+        ImageButton drawerImageView = (ImageButton) actionBarLayout.findViewById(R.id.action_bar_imgbtn);
+        drawerImageView.setBackgroundResource(R.mipmap.ic_action_back);
+        drawerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+                view.startAnimation(animation);
+                onBackPressed();
+            }
+        });
+
+        actionBar.setCustomView(actionBarLayout, params);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        //Toast.makeText(getApplicationContext(), "TAB " + tab.getPosition() + " TExt " + tab.getText(), Toast.LENGTH_SHORT).show();
-        switch (tab.getPosition()) {
-            case 0: // Veg Food
-                ft.replace(android.R.id.content, vegFragment);
-                break;
-            case 1://NonVeg Food
-                ft.replace(android.R.id.content, nonVegFragment);
-                break;
-            case 2://Soups
-                ft.replace(android.R.id.content, soupsFragment);
-                break;
-            case 3://Chiense
-                ft.replace(android.R.id.content, chineseFragment);
-                break;
-            case 4://Main Course
-                ft.replace(android.R.id.content, mainCourseFragment);
-                break;
-            case 5://Rice& noddles
-                ft.replace(android.R.id.content, riceFragment);
-                break;
-            case 6://Rolls
-                ft.replace(android.R.id.content, rollsFragment);
-                break;
-            case 7://Eggs
-                ft.replace(android.R.id.content, eggsFragment);
-                break;
-            case 8://Breads
-                ft.replace(android.R.id.content, breadsFragment);
-                break;
-            case 9://Salad
-                ft.replace(android.R.id.content, saladFragment);
-                break;
-            case 10://Desserts
-                ft.replace(android.R.id.content, dessertsFragment);
-                break;
-            case 11://Drinks
-                ft.replace(android.R.id.content, drinksFragment);
-                break;
-        }
+//        Toast.makeText(getApplicationContext(), "TAB " + tab.getPosition() + " TExt " + tab.getText(), Toast.LENGTH_SHORT).show();
+        pos = tab.getPosition();
+        ft.replace(android.R.id.content, vegFragment[pos]);
+//        switch (tab.getPosition()) {
+//            case 0: // Veg Food
+////                ft.replace(android.R.id.content, vegFragment);
+//                break;
+//            case 1://NonVeg Food
+//                ft.replace(android.R.id.content, nonVegFragment);
+//                break;
+//            case 2://Soups
+//                ft.replace(android.R.id.content, soupsFragment);
+//                break;
+//            case 3://Chiense
+//                ft.replace(android.R.id.content, chineseFragment);
+//                break;
+//            case 4://Main Course
+//                ft.replace(android.R.id.content, mainCourseFragment);
+//                break;
+//            case 5://Rice& noddles
+//                ft.replace(android.R.id.content, riceFragment);
+//                break;
+//            case 6://Rolls
+//                ft.replace(android.R.id.content, rollsFragment);
+//                break;
+//            case 7://Eggs
+//                ft.replace(android.R.id.content, eggsFragment);
+//                break;
+//            case 8://Breads
+//                ft.replace(android.R.id.content, breadsFragment);
+//                break;
+//            case 9://Salad
+//                ft.replace(android.R.id.content, saladFragment);
+//                break;
+//            case 10://Desserts
+//                ft.replace(android.R.id.content, dessertsFragment);
+//                break;
+//            case 11://Drinks
+//                ft.replace(android.R.id.content, drinksFragment);
+//                break;
+//        }
     }
 
     @Override

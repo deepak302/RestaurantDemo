@@ -45,27 +45,30 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/selected_tv_basket" />
 
-        <TextView
-            android:id="@+id/selected_tv_total"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/selected_imgbtn_next"
-            android:layout_centerHorizontal="true"
-            android:text="Total Amt."
-            android:textColor="@drawable/textview_selector"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/selected_tv_totalamount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/selected_tv_total"
-            android:layout_centerHorizontal="true"
-            android:ems="3"
-            android:text="$00000"
-            android:textColor="@color/brown"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/selected_tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Total"
+                android:textColor="@drawable/textview_selector"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/selected_tv_totalamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/brown"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <View
             style="@style/VLine"

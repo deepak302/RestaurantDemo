@@ -1,17 +1,13 @@
 package mentobile.restaurantdemo;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,10 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
 import mentobile.utils.DBHandler;
-import mentobile.utils.JsonParser;
+import mentobile.utils.WebService;
 
 
 public class SignupFragment extends Fragment implements View.OnClickListener {
@@ -50,7 +45,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     private Button btnCreateAccount;
     private String strEmail;
     CProgressDialog cProgressDialog;
-    private JsonParser jsonParser;
+    private WebService webService;
     private ArrayList<NameValuePair> listValue;
     private DBHandler dbHandler;
 
@@ -148,7 +143,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
                         @Override
                         protected String doInBackground(String... params) {
-                            jsonParser = new JsonParser();
+                            webService = new WebService();
                             listValue = new ArrayList<NameValuePair>();
                             listValue.add(new BasicNameValuePair("fname", fName));
                             listValue.add(new BasicNameValuePair("lname", lName));
@@ -165,7 +160,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                             listValue.add(new BasicNameValuePair("otheradd", otherAddress));
                             listValue.add(new BasicNameValuePair("del_inst", delIns));
                             listValue.add(new BasicNameValuePair("type", "2"));
-                            JSONObject json = jsonParser.makeHttpRequest("signup", listValue);
+                            JSONObject json = webService.makeHttpRequest("signup", listValue);
                             try {
                                 String success = json.getString("description");
                                 return success;
