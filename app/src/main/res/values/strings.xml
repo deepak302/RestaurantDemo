@@ -6,7 +6,6 @@
     <string name="title_activity_splash">SplashActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_facebook">FacebookActivity</string>
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
@@ -27,14 +26,12 @@
     <string name="exception">Exception: %1$s</string>
 
     //Signup Activity
-    <string name="prompt_title_signup">Create Account</string>
+    <string name="prompt_title_signup">Sign Up</string>
     <string name="prompt_ed_firstname">First Name</string>
     <string name="prompt_ed_lasttname">Last Name</string>
     <string name="prompt_ed_email">Email id</string>
     <string name="prompt_ed_mobile">Mobile</string>
     <string name="prompt_tv_contact">Contact</string>
-    <string name="prompt_ed_fname">First Name</string>
-    <string name="prompt_ed_lname">Last Name</string>
     <string name="prompt_ed_full_name">Full Name</string>
     <string name="prompt_ed_phone">Phone Number</string>
     <string name="prompt_ed_delivery_address">Delivery Address</string>
@@ -55,19 +52,21 @@
     <string name="prompt_chk_tc">Yes, I have read and accepted terms and conditions.</string>
     <string name="prompt_btn_create_account">Create Account</string>
     <string name="prompt_tv_forget_pass"><u>Forgot Password?</u></string>
+    <string name="hello_blank_fragment"></string>
 
     //Navigation Drawer
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="prompt_login">Log In</string>
-    <string name="prompt_logout">Log Out</string>
+    <string name="prompt_login">Sign In</string>
+    <string name="prompt_logout">Sign Out</string>
     <string-array name="prompt_nv_drawer">
-        <item name="prompt_myaccount">My Account</item>
+        <item name="prompt_myaccount">My Profile</item>
         <item name="prompt_myorder">My Order</item>
         <item name="prompt_address">Address</item>
         <item name="prompt_offers">Offers</item>
-        <item name="prompt_logout">Log In</item>
+        <item name="prompt_logout">Contact Us</item>
+        <item name="prompt_logout">Sign In</item>
     </string-array>
     <string name="prompt_nv_name">Welcome Guest</string>
     <string name="prompt_nv_email">Login to get exclusive offer</string>
@@ -114,6 +113,7 @@
     <string name="title_activity_mobile_confirm">MobileConfirmActivity</string>
     <string name="title_activity_order_complete">OrderCompleteActivity</string>
     <string name="title_activity_offer">OfferActivity</string>
+    <string name="title_activity_my_order">MyOrderActivity</string>
 
 
 

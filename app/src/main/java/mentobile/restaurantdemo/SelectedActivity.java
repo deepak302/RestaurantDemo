@@ -22,18 +22,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mentobile.categary.BreadsFragment;
-import mentobile.categary.ChineseFragment;
-import mentobile.categary.DessertsFragment;
-import mentobile.categary.DrinksFragment;
-import mentobile.categary.EggsFragment;
-import mentobile.categary.MainCourseFragment;
-import mentobile.categary.NonVegFragment;
-import mentobile.categary.RiceFragment;
-import mentobile.categary.RollsFragment;
-import mentobile.categary.SaladFragment;
-import mentobile.categary.SoupsFragment;
-import mentobile.categary.VegFragment;
 
 public class SelectedActivity extends Activity implements ActionBar.TabListener, View.OnClickListener {
 
@@ -46,18 +34,6 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
     private ActionBar actionBar;
     private FragmentManager manager;
     public ArrayList<ItemDetail> arrayList = new ArrayList<>();
-    //    private VegFragment vegFragment;
-    private NonVegFragment nonVegFragment;
-    private SoupsFragment soupsFragment;
-    private ChineseFragment chineseFragment;
-    private MainCourseFragment mainCourseFragment;
-    private RiceFragment riceFragment;
-    private RollsFragment rollsFragment;
-    private EggsFragment eggsFragment;
-    private BreadsFragment breadsFragment;
-    private SaladFragment saladFragment;
-    private DessertsFragment dessertsFragment;
-    private DrinksFragment drinksFragment;
     public static int pos;
 
     VegFragment vegFragment[] = new VegFragment[MainActivity.arrListGridItem.size()];
@@ -110,19 +86,6 @@ public class SelectedActivity extends Activity implements ActionBar.TabListener,
 
         btnNextPage = (ImageButton) findViewById(R.id.selected_imgbtn_next);
         btnNextPage.setOnClickListener(this);
-
-//        vegFragment = new VegFragment();
-        nonVegFragment = new NonVegFragment();
-        soupsFragment = new SoupsFragment();
-        chineseFragment = new ChineseFragment();
-        mainCourseFragment = new MainCourseFragment();
-        riceFragment = new RiceFragment();
-        rollsFragment = new RollsFragment();
-        eggsFragment = new EggsFragment();
-        breadsFragment = new BreadsFragment();
-        saladFragment = new SaladFragment();
-        dessertsFragment = new DessertsFragment();
-        drinksFragment = new DrinksFragment();
 
         for (int i = 0; i < MainActivity.arrListGridItem.size(); i++) {
             vegFragment[i] = new VegFragment();

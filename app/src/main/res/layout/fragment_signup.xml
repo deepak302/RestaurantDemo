@@ -34,58 +34,26 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp">
-
-            <ImageView
-                android:id="@+id/signup_imgv_contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="@mipmap/contact_icon" />
-
-            <TextView
-                android:id="@+id/signup_tv_contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/signup_imgv_contact"
-                android:layout_marginLeft="20dp"
-                android:layout_toEndOf="@+id/signup_imgv_contact"
-                android:layout_toRightOf="@+id/signup_imgv_contact"
-                android:text="@string/prompt_tv_contact"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            android:layout_below="@+id/signup_img_account">
 
 
             <EditText
                 android:id="@+id/signup_ed_fname"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_imgv_contact"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:cursorVisible="true"
-                android:hint="@string/prompt_ed_fname"
+                android:hint="@string/prompt_ed_full_name"
                 android:inputType="textCapSentences"
                 android:singleLine="true"
                 android:textCursorDrawable="@color/abc_search_url_text_normal" />
 
 
             <EditText
-                android:id="@+id/signup_ed_lname"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_fname"
-                android:layout_marginTop="20dp"
-                android:hint="@string/prompt_ed_lname"
-                android:inputType="textCapSentences"
-                android:singleLine="true" />
-
-
-            <EditText
                 android:id="@+id/signup_ed_email"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_lname"
+                android:layout_below="@+id/signup_ed_fname"
                 android:layout_marginTop="20dp"
                 android:autoLink="email"
                 android:hint="@string/prompt_ed_email"
@@ -99,39 +67,19 @@
                 android:layout_below="@+id/signup_ed_email"
                 android:layout_marginTop="20dp"
                 android:autoLink="phone"
-                android:maxLength="10"
                 android:hint="@string/prompt_ed_mobile"
                 android:inputType="phone"
+                android:maxLength="10"
                 android:phoneNumber="true"
                 android:singleLine="true" />
 
-
-            <ImageView
-                android:id="@+id/signup_img_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_mobile"
-                android:layout_marginTop="40dp"
-                android:background="@mipmap/passowrd_icon" />
-
-            <TextView
-                android:id="@+id/signup_tv_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/signup_ed_password"
-                android:layout_alignLeft="@+id/signup_tv_contact"
-                android:layout_alignStart="@+id/signup_tv_contact"
-                android:text="@string/prompt_ed_password"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/signup_ed_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_img_password"
-                android:layout_marginTop="40dp"
+                android:layout_below="@+id/signup_ed_mobile"
+                android:layout_marginTop="20dp"
                 android:hint="@string/prompt_ed_password"
                 android:singleLine="true" />
 
@@ -144,112 +92,112 @@
                 android:hint="@string/prompt_ed_cpassword"
                 android:singleLine="true" />
 
-            <ImageView
-                android:id="@+id/signup_img_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_cpassword"
-                android:layout_marginTop="40dp"
-                android:background="@mipmap/adress_icon" />
+            <!-- <ImageView
+                 android:id="@+id/signup_img_address"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_cpassword"
+                 android:layout_marginTop="40dp"
+                 android:background="@mipmap/adress_icon" />
 
-            <TextView
-                android:id="@+id/signup_tv_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/signup_ed_city"
-                android:layout_alignLeft="@+id/signup_tv_password"
-                android:layout_alignStart="@+id/signup_tv_password"
-                android:text="@string/prompt_tv_address"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+             <TextView
+                 android:id="@+id/signup_tv_address"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/signup_ed_city"
+                 android:layout_alignLeft="@+id/signup_tv_password"
+                 android:layout_alignStart="@+id/signup_tv_password"
+                 android:text="@string/prompt_tv_address"
+                 android:textAlignment="center"
+                 android:textSize="20sp"
+                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/signup_ed_city"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_img_address"
-                android:layout_marginTop="40dp"
-                android:hint="@string/prompt_ed_city"
-                android:inputType="text"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_city"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_img_address"
+                 android:layout_marginTop="40dp"
+                 android:hint="@string/prompt_ed_city"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_location"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_city"
-                android:layout_marginTop="20dp"
-                android:inputType="text"
-                android:hint="@string/prompt_ed_location"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_location"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_city"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_location"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_company"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_location"
-                android:layout_marginTop="40dp"
-                android:hint="@string/prompt_ed_company"
-                android:inputType="text"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_company"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_location"
+                 android:layout_marginTop="40dp"
+                 android:hint="@string/prompt_ed_company"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_flat"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_company"
-                android:layout_marginTop="20dp"
-                android:inputType="text"
-                android:hint="@string/prompt_ed_houseno"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_flat"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_company"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_houseno"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_apartment"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_flat"
-                android:layout_marginTop="20dp"
-                android:inputType="text"
-                android:hint="@string/prompt_ed_locality"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_apartment"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_flat"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_locality"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_postcode"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_apartment"
-                android:layout_marginTop="20dp"
-                android:hint="@string/prompt_ed_postcode"
-                android:inputType="number"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_postcode"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_apartment"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_postcode"
+                 android:inputType="number"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_optaddress"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_postcode"
-                android:inputType="text"
-                android:layout_marginTop="20dp"
-                android:hint="@string/prompt_ed_other_address"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_optaddress"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_postcode"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_other_address"
+                 android:inputType="text"
+                 android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/signup_ed_delv_ins"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/signup_ed_optaddress"
-                android:layout_marginTop="20dp"
-                android:inputType="text"
-                android:hint="@string/prompt_ed_delivery"
-                android:singleLine="true" />
+             <EditText
+                 android:id="@+id/signup_ed_delv_ins"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/signup_ed_optaddress"
+                 android:layout_marginTop="20dp"
+                 android:hint="@string/prompt_ed_delivery"
+                 android:inputType="text"
+                 android:singleLine="true" />-->
 
             <CheckBox
                 android:id="@+id/signup_chk_tc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/signup_ed_delv_ins"
-                android:layout_marginTop="40dp"
+                android:layout_below="@id/signup_ed_cpassword"
+                android:layout_marginTop="20dp"
                 android:checked="false"
                 android:clickable="true"
                 android:text="@string/prompt_chk_tc" />
@@ -257,12 +205,12 @@
             <Button
                 android:id="@+id/signup_btn_createaccount"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/signup_chk_tc"
-                android:layout_marginBottom="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_selector"
                 android:text="@string/prompt_btn_create_account"
-                android:textColor="#ffff200e" />
+                android:textColor="#ffffff" />
 
         </RelativeLayout>
 

@@ -16,7 +16,7 @@
                 android:layout_height="160dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/rest_bg" />
 
             <!--<TextView-->
                 <!--android:id="@+id/custom_tv_appname"-->

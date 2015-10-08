@@ -7,18 +7,18 @@
 
     <ImageView
         android:id="@+id/xml_nv_image"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/profile" />
 
     <TextView
         android:id="@+id/xml_nv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="5dp"
         android:layout_toRightOf="@+id/xml_nv_image"
         android:text="SGH Title"
-        android:textColor="@color/black" />
+        android:textColor="@color/counter_text_bg" />
 
 </RelativeLayout>

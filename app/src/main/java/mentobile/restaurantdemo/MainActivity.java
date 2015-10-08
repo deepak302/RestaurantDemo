@@ -2,8 +2,10 @@ package mentobile.restaurantdemo;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -75,11 +77,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private FragmentManager manager = null;
     private CProgressDialog cProgressDialog;
     private WebService webService;
+    private int[] nvResourseId = {R.mipmap.profile, R.mipmap.order, R.mipmap.address, R.mipmap.offer, R.mipmap.contact, R.mipmap.login};
 
     @Override
     protected void onStart() {
         super.onStart();
-//        setProfile();
+        setProfile();
         BasketActivity.arrListBasketItem.clear();
         ItemDetail.setTotalAmount(0);
         ItemDetail.setTotalBasketItem(0);
@@ -104,6 +107,27 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onDestroy() {
         super.onDestroy();
         arrayList.clear();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to exit this application?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public static void showHashKey(Context context) {
@@ -142,7 +166,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         arrayList = new ArrayList<NvItems>();
         String nv_array[] = getResources().getStringArray(R.array.prompt_nv_drawer);
         for (int i = 0; i < nv_array.length; i++) {
-            NvItems items = new NvItems(R.mipmap.ic_launcher, nv_array[i], null, false);
+            NvItems items = new NvItems(nvResourseId[i], nv_array[i], null, false);
             arrayList.add(items);
         }
         sMenuAdapter = new SMenuAdapter(getApplicationContext(),
@@ -173,13 +197,29 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         imgSwipeRight = (ImageView) findViewById(R.id.main_img_swipe_right);
         imgSwipeRight.setOnTouchListener(this);
-        if (arrListGridItem.size() < 1) {
-            MyAsynchTask myAsynchTask = new MyAsynchTask();
-            myAsynchTask.execute();
+        if (Application.isNetworkAvailable(getApplicationContext())) {
+            if (arrListGridItem.size() < 1) {
+                MyAsynchTask myAsynchTask = new MyAsynchTask();
+                myAsynchTask.execute();
+            } else {
+                gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, arrListGridItem);
+                gridView.setAdapter(gridAdapter);
+                gridAdapter.notifyDataSetChanged();
+            }
         } else {
-            gridAdapter = new GridAdapter(getApplicationContext(), R.layout.custom_grid_item, arrListGridItem);
-            gridView.setAdapter(gridAdapter);
-            gridAdapter.notifyDataSetChanged();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Network not Available!");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (Application.isNetworkAvailable(getApplicationContext())) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
     }
 
@@ -209,7 +249,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 }
             }
         });
-
         actionBar.setCustomView(actionBarLayout, params);
         actionBar.setDisplayHomeAsUpEnabled(false);
     }
@@ -257,18 +296,24 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         } else if (parent.getId() == R.id.main_lv_nvdrawer) {
 
             switch (position) {
-                case 0:
+                case 0:// header
                     break;
-                case 1:
+                case 1://my Profile
                     Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
                     break;
-                case 2:
+                case 2:// order
+                    Intent intentMyOffer = new Intent(this, MyOrderActivity.class);
+                    startActivity(intentMyOffer);
                     break;
-                case 3:
+                case 3://address
+
                     break;
-                case 4:
+                case 4://offers
+
                     break;
-                case 5:
+                case 5://contact us
+                    break;
+                case 6:
                     if (Application.getDataFromSharedPreference(this, Application.SP_LOGIN_LOGOUT, "email") != null) {
                         Application.clearSharedPreferenceFile(this, Application.SP_LOGIN_LOGOUT);
                         NvItems items = (NvItems) arrayList.get(position - 1);
@@ -279,7 +324,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         Profile.emptyProfile();
                         switch (LoginActivity1.LOGIN_TYPE) {
                             case 1://Simple Login
-
                                 break;
                             case 2://Google
                                 LoginActivity1.loginActivity.googlePlusLogout();

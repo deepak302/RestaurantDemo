@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_order_tv_orderno_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order No :  "
+        android:textColor="@color/brown"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_order_tv_orderno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/item_order_tv_details_text"
+        android:text="OD101115153" />
+
+    <TextView
+        android:id="@+id/item_order_tv_details_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_order_tv_orderno"
+        android:layout_marginTop="5dp"
+        android:text="Item Details:"
+        android:textColor="@color/brown"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_order_tv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_order_tv_orderno"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@+id/item_order_tv_details_text"
+        android:layout_toRightOf="@+id/item_order_tv_details_text"
+        android:text="Dall Makhani, Tawa Roti, Sweets" />
+
+    <TextView
+        android:id="@+id/item_order_tv_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_order_tv_details"
+        android:layout_marginTop="5dp"
+        android:text="Amount Rs. :"
+        android:textColor="@color/brown"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_order_tv_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_order_tv_details"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@+id/item_order_tv_amount_text"
+        android:layout_toRightOf="@+id/item_order_tv_details_text"
+        android:text="1500" />
+
+</RelativeLayout>

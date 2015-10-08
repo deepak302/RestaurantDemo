@@ -1,5 +1,6 @@
 package mentobile.restaurantdemo;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,10 +18,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -138,7 +144,34 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
                 .addScope(Plus.SCOPE_PLUS_LOGIN).build();
         mGoogleApiClient.connect();
         Log.d(TAG, ":::::GoogleApiClient " + mGoogleApiClient.isConnected());
+        setCustomActionBar();
+    }
 
+    private void setCustomActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        RelativeLayout actionBarLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        TextView actionBarTitleview = (TextView) actionBarLayout.findViewById(R.id.action_bar_tvTitle);
+        actionBarTitleview.setText("Login Account");
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.LEFT);
+        ImageButton drawerImageView = (ImageButton) actionBarLayout.findViewById(R.id.action_bar_imgbtn);
+        drawerImageView.setBackgroundResource(R.mipmap.ic_action_back);
+        drawerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.aplha);
+                view.startAnimation(animation);
+                onBackPressed();
+            }
+        });
+
+        actionBar.setCustomView(actionBarLayout, params);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -229,7 +262,7 @@ public class LoginActivity1 extends Activity implements View.OnClickListener, Go
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.custom_forgotpassword);
         dialog.setTitle("Forgot Password");
-        dialog.getWindow().getAttributes().windowAnimations = R.style.PopupWindowAnimation;
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.PopupWindowAnimation;
         final EditText edForgotPassword = (EditText) dialog.findViewById(R.id.forgotpass_ed_email);
         Button btnSubmit = (Button) dialog.findViewById(R.id.forgot_btn_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {

@@ -1,4 +1,4 @@
-package mentobile.categary;
+package mentobile.restaurantdemo;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;

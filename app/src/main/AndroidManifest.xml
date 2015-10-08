@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mentobile.restaurantdemo">
+    package="mentobile.restaurantdemo" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -16,17 +16,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -113,6 +112,10 @@
             android:name=".OfferActivity"
             android:label="@string/title_activity_offer"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyOrderActivity"
+            android:label="@string/title_activity_my_order" >
+        </activity>
     </application>
 
 </manifest>
